@@ -13,7 +13,7 @@ Items marked **[author]** can only be done by Seongbeen Lee (they need the Rhino
 | Platform | Rhino 9 for Mac |
 | Support email | vynnlee.vsl@gmail.com |
 | Website | https://github.com/vynnlee/promenade |
-| Project icon | `ui/icon-512.png` |
+| Project icon | `ui/logo-512.png` on white (the clean logo, not the badge) |
 
 ## Body
 
@@ -61,7 +61,7 @@ the centre, so captions stay large and the subject stays central. Upload them in
 | 5 | `05-hud.jpg` | Debug HUD |
 | 6 | `06-blocks.jpg` | Block mode: placed blocks, arm and slot bar |
 
-Project icon: `ui/icon-512.png`. Video (optional, later): Food4Rhino embeds YouTube or Vimeo links only.
+Project icon: `ui/logo-512.png` on white. Video (optional, later): Food4Rhino embeds YouTube or Vimeo links only.
 
 ## Publishing checklist
 
