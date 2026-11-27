@@ -7,6 +7,8 @@
     <RootNamespace>Promenade</RootNamespace>
     <Title>Promenade</Title>
     <Version>0.3.0</Version>
+    <!-- Yak reads the informational version; keep it equal to manifest.yml (no "+<commit>" suffix). -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Company>Seongbeen Lee</Company>
     <Authors>Seongbeen Lee</Authors>
     <Copyright>Copyright © 2026 Seongbeen Lee</Copyright>
