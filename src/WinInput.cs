@@ -34,6 +34,7 @@ internal sealed class WinInput : IWalkInput
         WalkKey.Comma => 0xBC, WalkKey.Period => 0xBE, // VK_OEM_COMMA, VK_OEM_PERIOD
         WalkKey.LeftBracket => 0xDB, WalkKey.RightBracket => 0xDD, // VK_OEM_4, VK_OEM_6
         WalkKey.F => 'F', WalkKey.G => 'G', WalkKey.B => 'B', WalkKey.F3 => 0x72, WalkKey.Grave => 0xC0, // VK_F3, VK_OEM_3
+        WalkKey.R => 'R', WalkKey.X => 'X', WalkKey.PageUp => 0x21, WalkKey.PageDown => 0x22, // VK_PRIOR, VK_NEXT
         _ => throw new ArgumentOutOfRangeException(nameof(key)),
     };
     static readonly Dictionary<int, WalkKey> ByVk = Enum.GetValues<WalkKey>().ToDictionary(Vk);

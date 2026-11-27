@@ -132,6 +132,8 @@ internal sealed class WalkSession
             _timer.Dispose();
             RhinoDoc.CloseDocument -= OnCloseDocument;
             RhinoView.Destroy -= OnViewDestroy;
+            ClipTools.OnStop(this);
+            RecordTools.OnStop(this);
         }
         finally
         {
@@ -176,11 +178,14 @@ internal sealed class WalkSession
             FrameTools.OnTick(this);
             Overlay.OnTick(this);
             BlockMode.OnTick(this);
+            ClipTools.OnTick(this);
+            RecordTools.OnTick(this);
 
             var before = (_eye, _yaw, _pitch);
             Look(dt);
             Move(dt);
             if (before != (_eye, _yaw, _pitch)) Apply();
+            RecordTools.AfterMove(this);
             ShowStatus();
         }
         catch (Exception ex)

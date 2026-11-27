@@ -17,7 +17,8 @@ internal sealed class MacInput : IWalkInput
         KeySpace = 49, KeyTab = 48, KeyEscape = 53, KeyLeft = 123, KeyRight = 124, KeyDown = 125, KeyUp = 126;
     const ushort Key1 = 18, Key2 = 19, Key3 = 20, Key4 = 21, Key5 = 23, KeyMinus = 27, KeyEqual = 24,
         KeyT = 17, KeyV = 9, KeyP = 35, KeyH = 4, KeyM = 46, KeyN = 45, KeyComma = 43, KeyPeriod = 47,
-        KeyLeftBracket = 33, KeyRightBracket = 30, KeyF = 3, KeyG = 5, KeyB = 11;
+        KeyLeftBracket = 33, KeyRightBracket = 30, KeyF = 3, KeyG = 5, KeyB = 11, KeyR = 15, KeyX = 7,
+        KeyPageUp = 116, KeyPageDown = 121;
     // F3 needs "Use F1, F2, etc. keys as standard function keys", or fn; ` is the ANSI grave.
     const ushort KeyF3 = 99, KeyGrave = 50;
 
@@ -31,6 +32,7 @@ internal sealed class MacInput : IWalkInput
         WalkKey.H => KeyH, WalkKey.M => KeyM, WalkKey.N => KeyN, WalkKey.Comma => KeyComma, WalkKey.Period => KeyPeriod,
         WalkKey.LeftBracket => KeyLeftBracket, WalkKey.RightBracket => KeyRightBracket,
         WalkKey.F => KeyF, WalkKey.G => KeyG, WalkKey.B => KeyB, WalkKey.F3 => KeyF3, WalkKey.Grave => KeyGrave,
+        WalkKey.R => KeyR, WalkKey.X => KeyX, WalkKey.PageUp => KeyPageUp, WalkKey.PageDown => KeyPageDown,
         _ => throw new ArgumentOutOfRangeException(nameof(key)),
     };
     static readonly HashSet<ushort> HandledKeys = [.. Enum.GetValues<WalkKey>().Select(Code)];

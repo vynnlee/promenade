@@ -8,12 +8,12 @@ namespace Promenade;
 // The keys a walk handles, whatever the OS calls them. Move: WASD/arrows, turn Q/E, jump Space, fly Tab, exit Esc.
 // View: lens 1–5, lens zoom -/=, two-point T, display mode V, screenshot P. Body: eye height H, measure M.
 // Scene: save view N, previous/next saved view , and ., sun time [ and ]. Frame: aspect F, guides G.
-// Block mode B. Debug HUD F3 and ` (grave).
+// Block mode B. Debug HUD F3 and ` (grave). Record R, clip X, floor up/down Page Up/Page Down.
 internal enum WalkKey
 {
     W, A, S, D, Q, E, Space, Tab, Escape, Left, Right, Up, Down,
     Digit1, Digit2, Digit3, Digit4, Digit5, Minus, Equal, T, V, P, H, M, N, Comma, Period,
-    LeftBracket, RightBracket, F, G, B, F3, Grave,
+    LeftBracket, RightBracket, F, G, B, F3, Grave, R, X, PageUp, PageDown,
 }
 
 // Keyboard and mouse for a running walk: MacInput on macOS, WinInput on Windows. Both swallow the keys above

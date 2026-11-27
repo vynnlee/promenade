@@ -9,3 +9,4 @@ test/*.3dm.rhl
 test/*.3dmbak
 # Logo explorations; the final master SVGs in design/logo/final/ are kept.
 design/logo/round*/
+promo/
