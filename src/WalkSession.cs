@@ -28,6 +28,7 @@ internal sealed class WalkSession
     readonly JoltWorld _world;
     readonly IWalkInput _input;
     readonly bool _invertMouseY;
+    readonly string _flyKey, _jumpKey; // the remapped Tab and Space, for the status line
     readonly Eto.Forms.UITimer _timer;
     readonly Stopwatch _clock = Stopwatch.StartNew();
 
@@ -99,6 +100,7 @@ internal sealed class WalkSession
         var keys = KeyMap.Load(problems);
         foreach (var problem in problems) RhinoApp.WriteLine($"Promenade: keymap: {problem}");
         _invertMouseY = keys.InvertMouseY;
+        (_flyKey, _jumpKey) = (keys[WalkKey.Tab], keys[WalkKey.Space]);
 
         try { _input = IWalkInput.Create(view, keys); }
         catch { _world.Dispose(); throw; }
@@ -294,9 +296,10 @@ internal sealed class WalkSession
     void ShowStatus()
     {
         string status = ClipTools.StatusPrefix + string.Format(CultureInfo.InvariantCulture,
-            "{0} | {1:0.0#} m/s | Tab: {2}, {3}{4}, Esc: exit",
-            _fly ? "Fly" : "Walk", _speedM, _fly ? "walk" : "fly", _fly ? "" : "Space: jump, ",
-            !_input.MouseLook ? "RMB: look" : _input.Blocks ? "RMB: place, LMB: break, B: blocks off" : "RMB: teleport, LMB: cursor");
+            "{0} | {1:0.0#} m/s | {5}: {2}, {3}{4}, Esc: exit",
+            _fly ? "Fly" : "Walk", _speedM, _fly ? "walk" : "fly", _fly ? "" : _jumpKey + ": jump, ",
+            !_input.MouseLook ? "RMB: look" : _input.Blocks ? "RMB: place, LMB: break, B: blocks off" : "RMB: teleport, LMB: cursor",
+            _flyKey);
         if (status == _status) return;
         _status = status;
         RhinoApp.SetCommandPrompt(status);

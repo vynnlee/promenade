@@ -52,7 +52,11 @@ internal static class RecordTools
             }
         }
         // The REC clock ticks on screen even when standing still.
-        if (_recording && _conduit.Enabled && (int)Clock.Elapsed.TotalSeconds != _shownSecond) s.View.Redraw();
+        if (_recording && _conduit.Enabled && (int)Clock.Elapsed.TotalSeconds is var second && second != _shownSecond)
+        {
+            _shownSecond = second; // set here too, so a view that never draws the mark is not redrawn every tick
+            s.View.Redraw();
+        }
     }
 
     // Right after the camera moved, every tick: one sample per 1/30 s.
@@ -234,12 +238,16 @@ internal static class RecordTools
 
         // <document folder>/<document> - Walk recording 03/, or ~/Pictures/Promenade/Walk recording 03/; "-2", …
         // if that folder (or its video) is already there.
-        string stem = ViewTools.OutputFolder(doc, recording.Name);
-        if (string.IsNullOrEmpty(doc.Path)) stem = Path.Combine(stem, recording.Name);
+        // The object name can be anything the user typed; only a plain file name may reach the path.
+        string safe = string.Concat(recording.Name.Select(c => Path.GetInvalidFileNameChars().Contains(c) || c == ':' ? '_' : c)).Trim().Trim('.');
+        if (safe.Length == 0) safe = "Walk recording";
+        string stem = ViewTools.OutputFolder(doc, safe);
+        if (string.IsNullOrEmpty(doc.Path)) stem = Path.Combine(stem, safe);
         string folder = stem;
         for (int k = 2; Directory.Exists(folder) || File.Exists(folder + ".mp4"); k++) folder = $"{stem}-{k}";
         string video = folder + ".mp4";
-        Directory.CreateDirectory(folder);
+        try { Directory.CreateDirectory(folder); }
+        catch (Exception ex) { RhinoApp.WriteLine($"WalkRender: could not create {folder}: {ex.Message}"); return Result.Failure; }
 
         bool cancel = false;
         var stopWatching = IWalkInput.WatchEscape(() => cancel = true);

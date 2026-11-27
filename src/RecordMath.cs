@@ -30,7 +30,7 @@ public static class RecordMath
     public static List<WalkSample> Decode(string? text)
     {
         var samples = new List<WalkSample>();
-        foreach (var line in (text ?? "").Split('\n'))
+        foreach (var line in (text ?? "").Split(['\n', '\r'], StringSplitOptions.RemoveEmptyEntries))
         {
             var f = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (f.Length != 8) continue;

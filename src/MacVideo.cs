@@ -40,33 +40,40 @@ internal static class MacVideo
 
         string? failed = null;
         using var space = CGColorSpace.CreateSrgb();
-        for (int i = 0; i < frames.Count && failed is null; i++)
+        try
         {
-            using var pool = new NSAutoreleasePool();
-            for (var wait = System.Diagnostics.Stopwatch.StartNew(); !input.ReadyForMoreMediaData;)
+            for (int i = 0; i < frames.Count && failed is null; i++)
             {
-                if (wait.Elapsed.TotalSeconds > 10) { failed = "the encoder stopped taking frames"; break; }
-                Thread.Sleep(2);
+                using var pool = new NSAutoreleasePool();
+                for (var wait = System.Diagnostics.Stopwatch.StartNew(); !input.ReadyForMoreMediaData;)
+                {
+                    if (wait.Elapsed.TotalSeconds > 10) { failed = "the encoder stopped taking frames"; break; }
+                    Thread.Sleep(2);
+                }
+                if (failed is not null) break;
+                using var provider = new CGDataProvider(frames[i]);
+                using var image = CGImage.FromPNG(provider, null, false, CGColorRenderingIntent.Default);
+                using var buffer = adaptor.PixelBufferPool?.CreatePixelBuffer();
+                if (image is null || buffer is null) { failed = $"could not read frame {i + 1}"; break; }
+                buffer.Lock(CVPixelBufferLock.None);
+                try
+                {
+                    using var context = new CGBitmapContext(buffer.BaseAddress, width, height, 8, buffer.BytesPerRow, space,
+                        CGBitmapFlags.PremultipliedFirst | CGBitmapFlags.ByteOrder32Little); // BGRA in memory
+                    context.DrawImage(new CGRect(0, 0, width, height), image);
+                }
+                finally
+                {
+                    buffer.Unlock(CVPixelBufferLock.None);
+                }
+                if (!adaptor.AppendPixelBufferWithPresentationTime(buffer, new CMTime(i, fps)))
+                    failed = writer.Error?.LocalizedDescription ?? $"could not add frame {i + 1}";
+                else if (!progress(i)) failed = "stopped";
             }
-            if (failed is not null) break;
-            using var provider = new CGDataProvider(frames[i]);
-            using var image = CGImage.FromPNG(provider, null, false, CGColorRenderingIntent.Default);
-            using var buffer = adaptor.PixelBufferPool?.CreatePixelBuffer();
-            if (image is null || buffer is null) { failed = $"could not read frame {i + 1}"; break; }
-            buffer.Lock(CVPixelBufferLock.None);
-            try
-            {
-                using var context = new CGBitmapContext(buffer.BaseAddress, width, height, 8, buffer.BytesPerRow, space,
-                    CGBitmapFlags.PremultipliedFirst | CGBitmapFlags.ByteOrder32Little); // BGRA in memory
-                context.DrawImage(new CGRect(0, 0, width, height), image);
-            }
-            finally
-            {
-                buffer.Unlock(CVPixelBufferLock.None);
-            }
-            if (!adaptor.AppendPixelBufferWithPresentationTime(buffer, new CMTime(i, fps)))
-                failed = writer.Error?.LocalizedDescription ?? $"could not add frame {i + 1}";
-            else if (!progress(i)) failed = "stopped";
+        }
+        catch (Exception ex)
+        {
+            failed = ex.Message; // a throwing frame or progress callback must still cancel the writer below
         }
 
         if (failed is not null)
@@ -75,9 +82,14 @@ internal static class MacVideo
             return failed;
         }
         input.MarkAsFinished();
-        using var done = new ManualResetEventSlim();
-        writer.FinishWriting(() => done.Set()); // the handler runs on another queue
-        if (!done.Wait(TimeSpan.FromMinutes(2))) return "the video did not finish";
+        // Not disposed: after a timeout the handler may still run later, on another queue.
+        var done = new ManualResetEventSlim();
+        writer.FinishWriting(() => done.Set());
+        if (!done.Wait(TimeSpan.FromMinutes(2)))
+        {
+            writer.CancelWriting();
+            return "the video did not finish";
+        }
         return writer.Status == AVAssetWriterStatus.Completed ? null : writer.Error?.LocalizedDescription ?? "the video did not finish";
     }
 }
