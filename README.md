@@ -4,14 +4,14 @@
 
 # Promenade
 
-Promenade — first-person walkthroughs for Rhinoceros® 9 on macOS.
+Promenade: first-person walkthroughs for Rhinoceros® 8 and 9 on Mac and Windows.
 
 Walk your model at human eye level, then compose and capture shots without leaving the viewport.
 Made for architects, interior and spatial designers.
 
 ![Promenade walking through a model](docs/images/hero.jpg)
 
-Free and open source (MIT). Rhino 8 and 9 on macOS.
+Free and open source (MIT).
 
 ## Features
 
@@ -50,21 +50,21 @@ Free and open source (MIT). Rhino 8 and 9 on macOS.
 
 ## Requirements
 
-- Rhinoceros 8 for Mac (8.21 or later, on its default .NET 8 runtime) or Rhinoceros 9 for Mac
-- Apple Silicon or Intel Mac
+- Rhinoceros 8 (8.21 or later, on its default .NET 8 runtime) or Rhinoceros 9
+- Mac (Apple Silicon or Intel) or Windows (x64)
 
 ## Install
 
 Quit Rhino first.
 
 - **Package Manager** (once published): in Rhino, run `PackageManager`, search for "Promenade", install.
-- **From a release `.yak`**: download `promenade-0.4.0-rh8_21-mac.yak` from
+- **From a release `.yak`** (Mac): download `promenade-0.4.0-rh8_21-mac.yak` from
   [Releases](https://github.com/vynnlee/promenade/releases), then:
   ```sh
   "/Applications/Rhino 9.app/Contents/Resources/bin/yak" install promenade-0.4.0-rh8_21-mac.yak
   ```
 - **Manual**: a `.yak` is a zip archive. Unzip it into a folder and drag `Promenade.rhp` onto the Rhino window.
-  Keep `JoltPhysicsSharp.dll`, `libjoltc.dylib` and `Promenade.rui` next to it.
+  Keep `JoltPhysicsSharp.dll`, `libjoltc.dylib` (Mac) or `joltc.dll` (Windows) and `Promenade.rui` next to it.
 
 The toolbar (`Promenade.rui`) loads automatically with the plug-in.
 
@@ -164,7 +164,7 @@ Walk-mode collision uses [Jolt Physics](https://github.com/jrouwe/JoltPhysics) `
   but switching to walk pushes you back up.
 - Jolt on macOS is single precision. Coordinates are recentred on the model, but precision drops several km
   from its centre. The ground plane extends 100 km from the model centre.
-- macOS only for now. Windows input is written but untested, so there is no Windows package yet.
+- Windows support is new and has not been tested on a Windows PC yet. Please report problems on GitHub Issues.
 
 ## Building from source
 
@@ -184,7 +184,7 @@ If `dotnet` isn't on your PATH, the scripts use `~/.dotnet/dotnet`. Toolbar GUID
 ## Contributing
 
 Bug reports and pull requests are welcome on [GitHub Issues](https://github.com/vynnlee/promenade/issues).
-Please include your Rhino build and macOS version. Run `dotnet run --project tests` before sending a change.
+Please include your Rhino build and your macOS or Windows version. Run `dotnet run --project tests` before sending a change.
 
 ## License
 

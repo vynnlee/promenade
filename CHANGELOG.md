@@ -14,8 +14,8 @@ and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.ht
 
 ### Added
 
-- Windows input (keyboard and mouse hooks, cursor lock) behind a shared input interface. Untested
-  on Windows, so no Windows package ships yet.
+- Windows support (x64): keyboard and mouse hooks and a cursor lock behind a shared input interface,
+  packaged as a separate Windows Yak package. Not yet tested on a Windows PC; feedback is welcome.
 
 ## [0.3.0] - 2026-11-27
 

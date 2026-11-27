@@ -12,7 +12,7 @@
     <Company>Seongbeen Lee</Company>
     <Authors>Seongbeen Lee</Authors>
     <Copyright>Copyright © 2026 Seongbeen Lee</Copyright>
-    <Description>First-person architectural walkthrough for Rhino 8 and 9 on macOS.</Description>
+    <Description>First-person architectural walkthrough for Rhino 8 and 9 on Mac and Windows.</Description>
     <Nullable>enable</Nullable>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
@@ -41,7 +41,7 @@
   <ItemGroup>
     <!-- Shipped by us: JoltPhysicsSharp.dll plus the single-precision natives, flat next to the .rhp instead of
          under runtimes/<rid>/native for every platform: libjoltc.dylib (universal) for macOS and joltc.dll
-         (x64) for a future Windows package. 2.19.1 is the last JoltPhysicsSharp with a net8.0 build. -->
+         (x64) for Windows. 2.19.1 is the last JoltPhysicsSharp with a net8.0 build. -->
     <PackageReference Include="JoltPhysicsSharp" Version="2.19.1" />
     <PackageReference Include="JoltPhysics.Native" Version="1.0.4" ExcludeAssets="native" GeneratePathProperty="true" />
     <None Include="$(PkgJoltPhysics_Native)/runtimes/osx/native/libjoltc.dylib" Link="libjoltc.dylib"

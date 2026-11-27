@@ -50,6 +50,17 @@ rm -rf "$stage"
 echo "Package: $package"
 unzip -l "$package"
 
+# Windows: the same plug-in with joltc.dll instead of the dylib. Only packaged here; it installs on a Windows PC.
+mkdir -p "$stage"
+cp "$out/Promenade.rhp" "$out/JoltPhysicsSharp.dll" "$out/joltc.dll" "$root/manifest.yml" \
+   "$root/THIRD-PARTY-NOTICES.md" "$root/ui/icon.png" "$root/ui/Promenade.rui" "$stage/"
+(cd "$stage" && "$yak" build --platform win)
+win_package="$root/dist/$(basename -- "$(ls "$stage"/*.yak)")"
+mv "$stage"/*.yak "$win_package"
+rm -rf "$stage"
+echo "Package: $win_package"
+unzip -l "$win_package"
+
 if [ "$dry_run" = true ]; then
     echo "Dry run: not installed."
     exit 0

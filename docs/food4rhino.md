@@ -7,10 +7,10 @@ Items marked **[author]** can only be done by Seongbeen Lee (they need the Rhino
 | Field | Value |
 |---|---|
 | Title | Promenade |
-| Short description | Walk through your model in first person in Rhino 9 for Mac, then frame and capture shots. |
+| Short description | Walk through your model in first person in Rhino 8 and 9 on Mac and Windows, then frame and capture shots. |
 | Category | The closest Food4Rhino offers to rendering, presentation or visualization |
 | License | MIT (free, open source) |
-| Platform | Rhino 9 for Mac |
+| Platform | Rhino 8 and 9, Mac and Windows |
 | Support email | vynnlee.vsl@gmail.com |
 | Website | https://github.com/vynnlee/promenade |
 | Project icon | `ui/logo-512.png` on white (the clean logo, not the badge) |
@@ -31,7 +31,8 @@ Items marked **[author]** can only be done by Seongbeen Lee (they need the Rhino
 > - Sun time control.
 >
 > **Requirements**
-> Rhino 9 for Mac on Apple Silicon.
+> Rhino 8 (8.21 or later) or Rhino 9, on Mac or Windows (x64).
+> Windows support is new. Please report problems on GitHub Issues.
 >
 > **How to use**
 > 1. Install Promenade from the Package Manager and restart Rhino.
@@ -71,12 +72,12 @@ Project icon: `ui/logo-512.png` on white. Video (optional, later): Food4Rhino em
    yak="/Applications/Rhino 9.app/Contents/Resources/bin/yak"
    "$yak" login
    ```
-3. Build the package: `scripts/install.sh --dry-run` → `dist/promenade-0.3.0-rh9_0-mac.yak`.
+3. Build the package: `scripts/install.sh --dry-run` → `dist/promenade-0.4.0-rh8_21-mac.yak` and `-win.yak`.
 4. **[author]** Push to the test server and install from it in Rhino to check:
    ```sh
-   "$yak" push --source https://test.yak.rhino3d.com dist/promenade-0.3.0-rh9_0-mac.yak
+   for f in dist/promenade-0.4.0-*.yak; do "$yak" push --source https://test.yak.rhino3d.com "$f"; done
    ```
-5. **[author]** Push to the public server: `"$yak" push dist/promenade-0.3.0-rh9_0-mac.yak`.
+5. **[author]** Push to the public server: `for f in dist/promenade-0.4.0-*.yak; do "$yak" push "$f"; done`.
 6. **[author]** On Food4Rhino, go to My Content → Create App, choose to create it from the Yak package "Promenade".
 7. **[author]** Fill the fields and body above, fill the support email, upload the media.
 8. **[author]** Publish. Food4Rhino reviews new apps, usually within 1–2 days.

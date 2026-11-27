@@ -4,7 +4,7 @@
 
 # Promenade
 
-Promenade — macOS용 Rhinoceros® 8과 9에서 쓰는 1인칭 걷기 탐색 플러그인입니다.
+Promenade는 Mac과 Windows용 Rhinoceros® 8과 9에서 쓰는 1인칭 걷기 탐색 플러그인입니다.
 건축·실내·공간 디자이너가 사람 눈높이에서 공간을 걸어 보고, 구도를 잡고, 이미지와 뷰로 남기는 흐름에 맞췄습니다.
 조작 방식은 게임식 1인칭 이동에서 착안했습니다. 무료 오픈 소스(MIT)입니다.
 
@@ -16,7 +16,7 @@ Rhino를 종료한 뒤 설치합니다.
 
 - **Package Manager**(공개 후): Rhino에서 `PackageManager`를 실행하고 "Promenade"를 검색해 설치합니다.
 - **릴리스 `.yak` 파일**: [Releases](https://github.com/vynnlee/promenade/releases)에서
-  `promenade-0.4.0-rh8_21-mac.yak`을 받아 설치합니다.
+  `promenade-0.4.0-rh8_21-mac.yak`(Mac)을 받아 설치합니다.
   ```sh
   "/Applications/Rhino 9.app/Contents/Resources/bin/yak" install promenade-0.4.0-rh8_21-mac.yak
   ```
@@ -35,7 +35,7 @@ scripts/build.sh                       # → bin/Release/net8.0/Promenade.rhp
 dotnet run --project tests             # 계산 로직 자가 점검 (Rhino 없이 실행)
 python3 scripts/make-rui.py            # ui/icons/*.svg → ui/Promenade.rui (툴바)
 scripts/install.sh --dry-run           # 빌드와 Yak 패키징만 하고 설치하지 않음
-scripts/install.sh                     # dist/promenade-*-rh9_0-mac.yak을 만들고 Yak으로 설치 (Rhino 종료 후)
+scripts/install.sh                     # dist/promenade-*-mac.yak과 -win.yak을 만들고 Mac용을 Yak으로 설치 (Rhino 종료 후)
 ```
 
 `dotnet`이 PATH에 없으면 `~/.dotnet/dotnet`을 씁니다. 아이콘 원본은 `ui/icons/`(라이트·다크 SVG, 36×36)이고,
@@ -183,13 +183,13 @@ Promenade 툴바의 버튼 12개는 모두 아래 명령을 실행합니다(`Wal
   걷기로 바꾸면 바닥 위로 밀려 올라옵니다.
 - macOS용 Jolt는 단정밀도(float)입니다. 모델 중심을 원점으로 옮겨 계산하므로 보통 모델은 문제없지만, 중심에서
   수 km 이상 떨어지면 정밀도가 떨어집니다. 바닥 평면은 모델 중심에서 100 km까지만 있습니다.
-- 지금은 macOS 전용입니다. Windows 입력 코드는 있지만 아직 테스트하지 않아 Windows 패키지는 없습니다.
+- Windows 지원은 처음 나온 것이라 아직 Windows PC에서 테스트하지 못했습니다. 문제가 있으면 GitHub Issues로 알려 주세요.
 
 ## 라이선스
 
 Promenade는 MIT 라이선스입니다([LICENSE](LICENSE)). 만든 사람: Seongbeen Lee.
 Jolt Physics와 JoltPhysicsSharp도 MIT 라이선스이며, 고지는 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)에 있고 패키지에 함께 들어갑니다.
-패키지에는 `JoltPhysicsSharp.dll`과 `libjoltc.dylib`(JoltPhysics.Native)이 포함됩니다.
+패키지에는 `JoltPhysicsSharp.dll`과 JoltPhysics.Native의 `libjoltc.dylib`(Mac) 또는 `joltc.dll`(Windows)이 포함됩니다.
 
 버그 제보와 제안은 [GitHub Issues](https://github.com/vynnlee/promenade/issues)로 보내 주세요.
 
