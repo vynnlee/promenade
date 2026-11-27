@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Rhino;
 using Rhino.Commands;
@@ -9,7 +10,7 @@ using Rhino.Input.Custom;
 namespace Promenade;
 
 // The walker's body for accessibility and clearance checks: eye-height presets (H), click to
-// teleport (right click in MouseLook), measure (M).
+// teleport (right click in MouseLook), measure (M), floor up/down (Page Up/Page Down).
 internal static class BodyTools
 {
     // Eye (camera) and body (Jolt capsule) height above the feet, in meters. Camera: a standing person
@@ -18,7 +19,7 @@ internal static class BodyTools
     // ponytail: the radius stays 0.3 m, so a wheelchair is not wider than a person.
     internal static readonly (string Name, double EyeM, double BodyM)[] Presets =
         [("Standing", 1.6, 1.75), ("Camera", 1.2, 1.75), ("Wheelchair", 1.2, 1.35), ("Child", 1.0, 1.15)];
-    const double ReachM = 100;
+    const double ReachM = 100, FloorSearchM = 30;
     static readonly double WalkableCos = Math.Cos(JoltWorld.MaxSlopeDegrees * Math.PI / 180);
     static int _preset; // static, so the next walk starts with it
 
@@ -32,6 +33,8 @@ internal static class BodyTools
         if (s.Input.TakePress(WalkKey.H)) SetPreset(s, (_preset + 1) % Presets.Length);
         if (s.Input.TakePress(WalkKey.M)) Measure(s);
         if (s.Input.TakeClick()) Teleport(s);
+        if (s.Input.TakePress(WalkKey.PageUp)) FloorJump(s, up: true);
+        if (s.Input.TakePress(WalkKey.PageDown)) FloorJump(s, up: false);
     }
 
     // Applies preset i to the running walk, or with none (s null) to the next one.
@@ -82,6 +85,44 @@ internal static class BodyTools
         s.View.ShowToast(Meters(to.DistanceTo(eye)));
     }
 
+    // Feet onto the next floor straight above or below, same heading; fly stays fly, at eye height over it.
+    static void FloorJump(WalkSession s, bool up)
+    {
+        var eye = s.Eye / s.Unit;
+        var feet = eye - Vector3d.ZAxis * s.EyeHeightM;
+        double headroom = Math.Max(s.EyeHeightM + 0.1, BodyHeightM);
+        var crossings = Crossings(s, up ? eye : feet + Vector3d.ZAxis * 0.05, up);
+        if (WalkPhysics.NextFloor(crossings, up, feet.Z, headroom) is not { } floor)
+        {
+            s.View.ShowToast(up ? "No floor above" : "No floor below");
+            return;
+        }
+        s.Teleport(new Point3d(eye.X, eye.Y, floor + s.EyeHeightM) * s.Unit, s.Yaw, s.Pitch);
+        s.View.ShowToast((up ? "Up " : "Down ") + Meters(Math.Abs(floor - feet.Z)));
+    }
+
+    // Heights (m) where a vertical ray from `from` crosses a surface within FloorSearchM, in order (WalkPhysics.NextFloor).
+    // Going up, a search that ends in open air adds its top, the ceiling of the last room.
+    static List<double> Crossings(WalkSession s, Point3d from, bool up)
+    {
+        var dir = up ? Vector3d.ZAxis : -Vector3d.ZAxis;
+        var crossings = new List<double>();
+        double start = from.Z;
+        for (int i = 0; i < 64; i++)
+        {
+            double left = FloorSearchM - Math.Abs(from.Z - start);
+            if (left <= 0 || !Cast(s, from, dir, out var hit, out _, left))
+            {
+                if (up) crossings.Add(start + FloorSearchM);
+                break;
+            }
+            if (hit.DistanceTo(from) < 1e-4) break; // started inside a solid (a block, the ground): no way through
+            crossings.Add(hit.Z);
+            from = hit + dir * 0.01;
+        }
+        return crossings;
+    }
+
     // Distance along the look direction and, walking, the clear height floor to ceiling where you stand.
     static void Measure(WalkSession s)
     {
@@ -96,9 +137,9 @@ internal static class BodyTools
     static string Meters(double m) => string.Format(CultureInfo.InvariantCulture, "{0:0.00} m", m);
 
     // JoltWorld.CastRay in Rhino types; meters.
-    static bool Cast(WalkSession s, Point3d from, Vector3d dir, out Point3d hit, out Vector3d normal)
+    static bool Cast(WalkSession s, Point3d from, Vector3d dir, out Point3d hit, out Vector3d normal, double reachM = ReachM)
     {
-        bool found = s.World.CastRay((from.X, from.Y, from.Z), (dir.X, dir.Y, dir.Z), ReachM, out var h, out var n);
+        bool found = s.World.CastRay((from.X, from.Y, from.Z), (dir.X, dir.Y, dir.Z), reachM, out var h, out var n);
         hit = new Point3d(h.X, h.Y, h.Z);
         normal = new Vector3d(n.X, n.Y, n.Z);
         return found;

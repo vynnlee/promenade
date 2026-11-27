@@ -27,6 +27,7 @@ internal sealed class WalkSession
     readonly double _unit;  // model units per meter
     readonly JoltWorld _world;
     readonly IWalkInput _input;
+    readonly bool _invertMouseY;
     readonly Eto.Forms.UITimer _timer;
     readonly Stopwatch _clock = Stopwatch.StartNew();
 
@@ -93,7 +94,13 @@ internal sealed class WalkSession
             _world = CreateWorld(ground, GroundPlaneZ(doc, ground) / _unit);
         WorldBuildSeconds = build.Elapsed.TotalSeconds;
 
-        try { _input = IWalkInput.Create(view); }
+        // A bad keymap.json never stops a walk: what is wrong is said and keeps its default.
+        var problems = new List<string>();
+        var keys = KeyMap.Load(problems);
+        foreach (var problem in problems) RhinoApp.WriteLine($"Promenade: keymap: {problem}");
+        _invertMouseY = keys.InvertMouseY;
+
+        try { _input = IWalkInput.Create(view, keys); }
         catch { _world.Dispose(); throw; }
         _timer = new Eto.Forms.UITimer { Interval = 1.0 / 120.0 };
         _timer.Elapsed += (_, _) => Tick();
@@ -198,6 +205,7 @@ internal sealed class WalkSession
     void Look(double dt)
     {
         var (dx, dy) = _input.TakeMouseDelta();
+        if (_invertMouseY) dy = -dy;
         _yaw -= dx * MouseRadiansPerPoint;
         _pitch = WalkPhysics.ClampPitch(_pitch - dy * MouseRadiansPerPoint);
         if (_view.ActiveViewport.IsTwoPointPerspectiveProjection)

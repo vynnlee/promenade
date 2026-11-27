@@ -20,25 +20,6 @@ internal sealed class WinInput : IWalkInput
         WM_RBUTTONDOWN = 0x204, WM_RBUTTONUP = 0x205, WM_RBUTTONDBLCLK = 0x206, WM_MOUSEWHEEL = 0x20A;
     const double WheelDelta = 120; // per notch
 
-    // Windows virtual-key codes. The punctuation ones (VK_OEM_*) are named for the US layout.
-    // ponytail: virtual keys follow the layout, macOS key codes the key position, so on AZERTY WASD are the letters
-    // W A S D here but the keys at the WASD positions on a Mac. Map scan codes (lParam bits 16–24) to match.
-    static int Vk(WalkKey key) => key switch
-    {
-        WalkKey.W => 'W', WalkKey.A => 'A', WalkKey.S => 'S', WalkKey.D => 'D', WalkKey.Q => 'Q', WalkKey.E => 'E',
-        WalkKey.Space => 0x20, WalkKey.Tab => 0x09, WalkKey.Escape => VK_ESCAPE,
-        WalkKey.Left => 0x25, WalkKey.Up => 0x26, WalkKey.Right => 0x27, WalkKey.Down => 0x28,
-        WalkKey.Digit1 => '1', WalkKey.Digit2 => '2', WalkKey.Digit3 => '3', WalkKey.Digit4 => '4', WalkKey.Digit5 => '5',
-        WalkKey.Minus => 0xBD, WalkKey.Equal => 0xBB, // VK_OEM_MINUS, VK_OEM_PLUS (the =/+ key)
-        WalkKey.T => 'T', WalkKey.V => 'V', WalkKey.P => 'P', WalkKey.H => 'H', WalkKey.M => 'M', WalkKey.N => 'N',
-        WalkKey.Comma => 0xBC, WalkKey.Period => 0xBE, // VK_OEM_COMMA, VK_OEM_PERIOD
-        WalkKey.LeftBracket => 0xDB, WalkKey.RightBracket => 0xDD, // VK_OEM_4, VK_OEM_6
-        WalkKey.F => 'F', WalkKey.G => 'G', WalkKey.B => 'B', WalkKey.F3 => 0x72, WalkKey.Grave => 0xC0, // VK_F3, VK_OEM_3
-        WalkKey.R => 'R', WalkKey.X => 'X', WalkKey.PageUp => 0x21, WalkKey.PageDown => 0x22, // VK_PRIOR, VK_NEXT
-        _ => throw new ArgumentOutOfRangeException(nameof(key)),
-    };
-    static readonly Dictionary<int, WalkKey> ByVk = Enum.GetValues<WalkKey>().ToDictionary(Vk);
-
     delegate nint HookProc(int code, nint wParam, nint lParam);
 
     [StructLayout(LayoutKind.Sequential)] struct POINT { public int X, Y; }
@@ -62,6 +43,7 @@ internal sealed class WinInput : IWalkInput
     [DllImport("user32.dll")] static extern nint GetForegroundWindow();
     [DllImport("user32.dll")] static extern uint GetWindowThreadProcessId(nint hwnd, out uint processId);
 
+    readonly Dictionary<int, WalkKey> _byVk; // follows the active layout: see KeyMap
     readonly nint _view; // the walk view's window
     readonly HookProc _keyProc, _mouseProc; // held here so the GC never collects them while user32 calls them
     readonly nint _keyHook, _mouseHook;
@@ -81,8 +63,9 @@ internal sealed class WinInput : IWalkInput
         set => (_blocks, LeftHeld, _placed, _clicked) = (value, false, false, false);
     }
 
-    public WinInput(RhinoView view)
+    public WinInput(RhinoView view, KeyMap keys)
     {
+        _byVk = Enum.GetValues<WalkKey>().ToDictionary(k => keys.WinVk(keys[k]));
         _view = view.Handle;
         _keyProc = OnKey;
         _mouseProc = OnMouse;
@@ -183,7 +166,7 @@ internal sealed class WinInput : IWalkInput
     // flags: bit 31 key up, bit 30 already down (auto-repeat), bit 29 Alt held.
     bool Key(int vk, long flags)
     {
-        if (!ByVk.TryGetValue(vk, out var key)) return false;
+        if (!_byVk.TryGetValue(vk, out var key)) return false;
         bool up = (flags & (1L << 31)) != 0;
         if (up) _held.Remove(key); // also under Ctrl/Alt, so a key released with one held never stays "down"
         if (Down(VK_CONTROL) || (flags & (1L << 29)) != 0) return false; // Ctrl/Alt shortcuts are Rhino's (Cmd on macOS)

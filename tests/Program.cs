@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Promenade;
 
 static void Near(double actual, double expected, string what)
@@ -98,5 +100,34 @@ Near(cap.CropX + cap.CropY, 0, "same aspect: no crop");
 Near(FrameMath.HorizonY(1, -1, 1, 0, 1000), 500, "level: horizon at the centre");
 Near(FrameMath.HorizonY(1, -1, 1, Math.PI / 4, 1000), 1000, "45° up in a 90° frustum: horizon at the bottom");
 Near(FrameMath.HorizonY(1.5, -0.5, 1, 0, 1000), 750, "two-point shift up: horizon lower");
+
+// Floor jump: 3 m storeys, a solid 0.2 m slab (underside 2.8, top 3.0), a plane roof at 6.
+double? f = WalkPhysics.NextFloor([2.8, 3.0, 6.0, 31.6], true, 0, 1.7);
+Near(f ?? -1, 3.0, "up: onto the slab's top, not its underside");
+Near(WalkPhysics.NextFloor([2.8, 3.0, 6.0, 31.6], true, 3.0, 1.7) ?? -1, 6.0, "up from the slab: onto the roof (open sky)");
+if (WalkPhysics.NextFloor([2.8, 3.0, 4.0], true, 0, 1.7) is not null) throw new Exception("up: a crawl space is no floor");
+Near(WalkPhysics.NextFloor([3.0, 2.8, 0.0], false, 3.0, 1.7) ?? -1, 0.0, "down: through the slab to the floor below");
+Near(WalkPhysics.NextFloor([0.0], false, 5.0, 1.7) ?? -1, 0.0, "down while flying: the floor straight below");
+if (WalkPhysics.NextFloor([0.0], false, 0.0, 1.7) is not null) throw new Exception("down: nothing under the ground");
+
+// Keymap: defaults, a swap, and what falls back.
+var problems = new List<string>();
+var keys = KeyMap.Parse("{}", problems);
+if (problems.Count != 0 || keys[WalkKey.Digit1] != "1" || keys[WalkKey.Escape] != "Escape") throw new Exception("keymap defaults");
+keys = KeyMap.Parse("""
+    // comments and trailing commas are fine
+    { "layout": "AZERTY", "invertMouseY": true, "keys": { "W": "Up", "Up": "w", "T": "v", "Escape": "Q", "F3": "Nope", "Foo": "A", }, }
+    """, problems);
+if (keys[WalkKey.W] != "Up" || keys[WalkKey.Up] != "W" || !keys.InvertMouseY || keys.Layout != "azerty") throw new Exception("keymap swap");
+if (keys[WalkKey.T] != "T" || keys[WalkKey.F3] != "F3" || keys[WalkKey.Escape] != "Escape") throw new Exception("keymap fallbacks");
+if (problems.Count != 4) throw new Exception($"keymap: 4 problems expected, got {string.Join("; ", problems)}");
+if (keys.WinVk(keys[WalkKey.W]) != 0x26 || keys.WinVk("A") != 'Q' || keys.WinVk("Q") != 'A' || keys.WinVk("F12") != 0x7B)
+    throw new Exception("keymap: Windows keys");
+var all = KeyMap.KeyNames.Append("Escape").ToList();
+if (all.Select(KeyMap.MacCode).Distinct().Count() != all.Count || all.Select(keys.WinVk).Distinct().Count() != all.Count)
+    throw new Exception("keymap: every key name is one key on both OSes");
+problems.Clear();
+KeyMap.Parse(KeyMap.DefaultJson(), problems);
+if (problems.Count != 0) throw new Exception($"keymap: the default file reads back clean: {string.Join("; ", problems)}");
 
 Console.WriteLine("SelfCheck: all passed");

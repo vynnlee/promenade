@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using Rhino;
@@ -56,6 +58,34 @@ public sealed class WalkCommand : Command
         catch (Exception ex) // e.g. the Jolt native library failed to load
         {
             RhinoApp.WriteLine($"Promenade: could not start: {ex.Message}");
+            return Result.Failure;
+        }
+        return Result.Success;
+    }
+}
+
+public sealed class WalkKeysCommand : Command
+{
+    public override string EnglishName => "WalkKeys";
+
+    // Writes the default keymap.json if there is none and opens it; the next walk reads it.
+    protected override Result RunCommand(RhinoDoc doc, RunMode mode)
+    {
+        string path = KeyMap.FilePath;
+        try
+        {
+            if (!File.Exists(path))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+                File.WriteAllText(path, KeyMap.DefaultJson());
+            }
+            RhinoApp.WriteLine($"Promenade: keymap {path} (read at every walk start)");
+            using var editor = OperatingSystem.IsMacOS() ? Process.Start("open", ["-t", path]) // the default text editor
+                : Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            RhinoApp.WriteLine($"Promenade: keymap {path}: {ex.Message}");
             return Result.Failure;
         }
         return Result.Success;

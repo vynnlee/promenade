@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Promenade;
 
@@ -57,5 +58,25 @@ public static class WalkPhysics
             z = v.Z;
         }
         return (x, y, z - Gravity * dt);
+    }
+
+    // The next floor up or down: the height to put the feet on, or null. `crossings` are the heights where a vertical
+    // ray from the walker crosses a surface, in the order crossed: going up from the eye (ending with the search's
+    // top when that is open air), going down from just above the feet. A floor is a crossing more than 0.1 m from
+    // the feet with at least `headroom` of air above it (going down, above the first crossing is the walker's own
+    // space). A slab modelled as a solid is two crossings, underside and top, and only its top has room.
+    // ponytail: a solid thicker than headroom reads as a room (feet inside it); telling inside from outside would
+    // need closed geometry, which models rarely are.
+    public static double? NextFloor(IReadOnlyList<double> crossings, bool up, double feet, double headroom)
+    {
+        for (int i = 0; i < crossings.Count; i++)
+        {
+            double z = crossings[i];
+            if (up ? z < feet + 0.1 : z > feet - 0.1) continue; // the floor stood on
+            double room = up ? (i + 1 < crossings.Count ? crossings[i + 1] - z : 0)
+                : (i > 0 ? crossings[i - 1] - z : double.PositiveInfinity);
+            if (room >= headroom) return z;
+        }
+        return null;
     }
 }

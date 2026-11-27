@@ -12,30 +12,10 @@ namespace Promenade;
 [SupportedOSPlatform("macos")]
 internal sealed class MacInput : IWalkInput
 {
-    // macOS virtual key codes (ANSI positions).
-    const ushort KeyA = 0, KeyS = 1, KeyD = 2, KeyQ = 12, KeyW = 13, KeyE = 14,
-        KeySpace = 49, KeyTab = 48, KeyEscape = 53, KeyLeft = 123, KeyRight = 124, KeyDown = 125, KeyUp = 126;
-    const ushort Key1 = 18, Key2 = 19, Key3 = 20, Key4 = 21, Key5 = 23, KeyMinus = 27, KeyEqual = 24,
-        KeyT = 17, KeyV = 9, KeyP = 35, KeyH = 4, KeyM = 46, KeyN = 45, KeyComma = 43, KeyPeriod = 47,
-        KeyLeftBracket = 33, KeyRightBracket = 30, KeyF = 3, KeyG = 5, KeyB = 11, KeyR = 15, KeyX = 7,
-        KeyPageUp = 116, KeyPageDown = 121;
-    // F3 needs "Use F1, F2, etc. keys as standard function keys", or fn; ` is the ANSI grave.
-    const ushort KeyF3 = 99, KeyGrave = 50;
+    static readonly ushort KeyEscape = KeyMap.MacCode("Escape");
 
-    static ushort Code(WalkKey key) => key switch
-    {
-        WalkKey.W => KeyW, WalkKey.A => KeyA, WalkKey.S => KeyS, WalkKey.D => KeyD, WalkKey.Q => KeyQ, WalkKey.E => KeyE,
-        WalkKey.Space => KeySpace, WalkKey.Tab => KeyTab, WalkKey.Escape => KeyEscape,
-        WalkKey.Left => KeyLeft, WalkKey.Right => KeyRight, WalkKey.Up => KeyUp, WalkKey.Down => KeyDown,
-        WalkKey.Digit1 => Key1, WalkKey.Digit2 => Key2, WalkKey.Digit3 => Key3, WalkKey.Digit4 => Key4, WalkKey.Digit5 => Key5,
-        WalkKey.Minus => KeyMinus, WalkKey.Equal => KeyEqual, WalkKey.T => KeyT, WalkKey.V => KeyV, WalkKey.P => KeyP,
-        WalkKey.H => KeyH, WalkKey.M => KeyM, WalkKey.N => KeyN, WalkKey.Comma => KeyComma, WalkKey.Period => KeyPeriod,
-        WalkKey.LeftBracket => KeyLeftBracket, WalkKey.RightBracket => KeyRightBracket,
-        WalkKey.F => KeyF, WalkKey.G => KeyG, WalkKey.B => KeyB, WalkKey.F3 => KeyF3, WalkKey.Grave => KeyGrave,
-        WalkKey.R => KeyR, WalkKey.X => KeyX, WalkKey.PageUp => KeyPageUp, WalkKey.PageDown => KeyPageDown,
-        _ => throw new ArgumentOutOfRangeException(nameof(key)),
-    };
-    static readonly HashSet<ushort> HandledKeys = [.. Enum.GetValues<WalkKey>().Select(Code)];
+    readonly Dictionary<WalkKey, ushort> _codes; // positional: see KeyMap
+    readonly HashSet<ushort> _handled; // swallowed while walking
 
     [DllImport("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics")]
     static extern int CGAssociateMouseAndMouseCursorPosition(int connected);
@@ -59,8 +39,10 @@ internal sealed class MacInput : IWalkInput
         set => (_blocks, LeftHeld, _placed, _clicked) = (value, false, false, false);
     }
 
-    public MacInput()
+    public MacInput(KeyMap keys)
     {
+        _codes = Enum.GetValues<WalkKey>().ToDictionary(k => k, k => KeyMap.MacCode(keys[k]));
+        _handled = [.. _codes.Values];
         Shift = (NSEvent.CurrentModifierFlags & NSEventModifierMask.ShiftKeyMask) != 0;
 
         // Plain mouse moves are only delivered to windows that ask for them.
@@ -80,9 +62,9 @@ internal sealed class MacInput : IWalkInput
         SetMouseLook(true);
     }
 
-    public bool IsDown(WalkKey key) => _held.Contains(Code(key));
+    public bool IsDown(WalkKey key) => _held.Contains(_codes[key]);
 
-    public bool TakePress(WalkKey key) => _pressed.Remove(Code(key));
+    public bool TakePress(WalkKey key) => _pressed.Remove(_codes[key]);
 
     public bool TakeClick()
     {
@@ -132,7 +114,7 @@ internal sealed class MacInput : IWalkInput
         {
             case NSEventType.KeyDown:
             case NSEventType.KeyUp:
-                if ((e.ModifierFlags & NSEventModifierMask.CommandKeyMask) != 0 || !HandledKeys.Contains(e.KeyCode))
+                if ((e.ModifierFlags & NSEventModifierMask.CommandKeyMask) != 0 || !_handled.Contains(e.KeyCode))
                     return e;
                 // A command is prompting (WalkLens, WalkSun, ...): its digits and Esc are Rhino's. Walk itself
                 // returns as soon as the session starts, so walking alone is never "in a command".
