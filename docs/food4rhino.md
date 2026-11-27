@@ -44,8 +44,6 @@ Items marked **[author]** can only be done by Seongbeen Lee (they need the Rhino
 > Bugs and ideas: https://github.com/vynnlee/promenade/issues
 >
 > MIT license. Includes Jolt Physics and JoltPhysicsSharp (MIT).
->
-> Rhinoceros is a registered trademark of Robert McNeel & Associates. Promenade is not affiliated with or endorsed by McNeel.
 
 ## Media
 
