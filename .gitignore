@@ -1,0 +1,11 @@
+bin/
+obj/
+dist/
+.DS_Store
+test/*Walk shots*/
+# Regenerable with test/test_space.py; the saved file embeds local paths.
+test/*.3dm
+test/*.3dm.rhl
+test/*.3dmbak
+# Logo work in progress (final assets live in ui/).
+design/

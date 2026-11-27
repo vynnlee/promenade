@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RhinoUI major_ver="5" minor_ver="0" guid="bc8e8c36-212f-40b8-8961-5918932bb4c3" plug_in_guid="ea7baea5-2d20-4842-a9c5-1b12a6cf4e3a" localize="False" default_language_id="1033">
+  <extend_rhino_menus />
+  <menus />
+  <tool_bar_groups>
+    <tool_bar_group guid="20066968-e9c5-46c5-8329-16645777bd92" dock_bar_guid32="4bb43680-72d6-4519-89e7-3c9ccb0653c3" dock_bar_guid64="f24103b3-0532-4579-9db6-8f099f840a3a" active_tool_bar_group="5f3b7eea-7202-48e5-bbec-036463bca868" single_file="False" hide_single_tab="True" point_floating="200,200">
+      <text><locale_1033>Promenade</locale_1033></text>
+      <dock_bar_info dpi_scale="100" dock_bar="False" docking="True" horz="False" visible="True" floating="True" mru_float_style="8192" mru_width="1" point_pos="-1,-1" float_point="200,200" dock_location="top" float_size="412,70" />
+      <tool_bar_group_item guid="f17e1451-daa5-4d20-806b-cf42de5d8a2a" major_version="1" minor_version="1">
+        <text><locale_1033>Promenade</locale_1033></text>
+        <tool_bar_id>5f3b7eea-7202-48e5-bbec-036463bca868</tool_bar_id>
+      </tool_bar_group_item>
+    </tool_bar_group>
+  </tool_bar_groups>
+  <tool_bars>
+    <tool_bar guid="5f3b7eea-7202-48e5-bbec-036463bca868" bitmap_id="b4160536-b936-4971-a2ce-dbd49d9f0b59" item_display_style="control_only">
+      <text><locale_1033>Promenade</locale_1033></text>
+      <tool_bar_item guid="d79c4638-bbe4-4f68-be89-5873c11ad391" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Walk</locale_1033></text>
+        <left_macro_id>394d49fa-76a4-4f84-9a4f-fa9eb1f6ec1d</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="ae642325-9f0a-4ea0-bcb6-c99cbcb00a07" button_style="spacer" />
+      <tool_bar_item guid="8786c6c9-9dec-44be-9c3a-fbef37f0887a" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Eye Height</locale_1033></text>
+        <left_macro_id>b4e5c79c-09d0-45b2-9a03-67c0d9a0289c</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="4a3a3d2d-8167-4f67-823e-55ef6ef3b49c" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Lens</locale_1033></text>
+        <left_macro_id>3dd4cfec-7ae5-4cfc-ba86-d9008afcb0dd</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="7c732bd9-fc7a-4350-a6c7-8779006350a9" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Two-Point</locale_1033></text>
+        <left_macro_id>455d377a-f866-4db1-825b-e5070479f19d</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="16988002-89c8-44c2-9823-c5391adde4ef" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Display Mode</locale_1033></text>
+        <left_macro_id>2b7ca373-2a6b-45c3-b33d-3810cea4985a</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="fd1b25eb-f7e6-4246-81bf-200f555d9b9f" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Frame</locale_1033></text>
+        <left_macro_id>6df96659-090e-499b-a4aa-7cc9e496a21a</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="03664e8d-f64e-4eb4-8abb-0b2d926cb91e" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Guides</locale_1033></text>
+        <left_macro_id>cfcb2264-b244-4998-8c29-df2a33054318</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="f47cd404-eca8-4f39-84f0-f094cf0b0d8e" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Screenshot</locale_1033></text>
+        <left_macro_id>92d9be10-596f-48d1-9c1c-f67bcc7ff999</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="8c9f4970-3431-4cf4-9de1-830e4e67b246" button_style="spacer" />
+      <tool_bar_item guid="4242af23-aa54-4ad1-82de-b3541cec4458" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Save View</locale_1033></text>
+        <left_macro_id>1c912ed7-9005-4d70-a89d-ad8a689b6c01</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="ad004a31-974c-477b-a67a-20d525ba36e5" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Tour</locale_1033></text>
+        <left_macro_id>1c8660de-64c8-4738-86a6-7c9171b564e0</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="0fd402cd-b6e6-4974-9b22-b29f30e1327f" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Sun</locale_1033></text>
+        <left_macro_id>63072a8b-5231-4384-8bec-1da8c12d39dd</left_macro_id>
+      </tool_bar_item>
+      <tool_bar_item guid="8e580b26-0a5c-46c1-88da-58d33aac962d" button_display_mode="control_only" button_style="normal">
+        <text><locale_1033>Blocks</locale_1033></text>
+        <left_macro_id>59c0a3ac-393f-4d52-9de1-ffcce26506a0</left_macro_id>
+      </tool_bar_item>
+    </tool_bar>
+  </tool_bars>
+  <macros>
+    <macro_item guid="394d49fa-76a4-4f84-9a4f-fa9eb1f6ec1d" bitmap_id="394d49fa-76a4-4f84-9a4f-fa9eb1f6ec1d">
+      <text><locale_1033>Macro.Walk</locale_1033></text>
+      <tooltip><locale_1033>Walk: first-person walkthrough (WASD, Space jump, mouse look, right-click to teleport, left-click for cursor, M measure, Esc to exit)</locale_1033></tooltip>
+      <help_text><locale_1033>Walk: first-person walkthrough (WASD, Space jump, mouse look, right-click to teleport, left-click for cursor, M measure, Esc to exit)</locale_1033></help_text>
+      <button_text><locale_1033>Walk</locale_1033></button_text>
+      <menu_text><locale_1033>Walk</locale_1033></menu_text>
+      <script>! _Walk</script>
+    </macro_item>
+    <macro_item guid="b4e5c79c-09d0-45b2-9a03-67c0d9a0289c" bitmap_id="b4e5c79c-09d0-45b2-9a03-67c0d9a0289c">
+      <text><locale_1033>Macro.WalkEyeHeight</locale_1033></text>
+      <tooltip><locale_1033>Eye height: Standing, Camera, Wheelchair or Child (H while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Eye height: Standing, Camera, Wheelchair or Child (H while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Eye Height</locale_1033></button_text>
+      <menu_text><locale_1033>Eye Height</locale_1033></menu_text>
+      <script>! _WalkEyeHeight</script>
+    </macro_item>
+    <macro_item guid="3dd4cfec-7ae5-4cfc-ba86-d9008afcb0dd" bitmap_id="3dd4cfec-7ae5-4cfc-ba86-d9008afcb0dd">
+      <text><locale_1033>Macro.WalkLens</locale_1033></text>
+      <tooltip><locale_1033>Lens: 14, 18, 24, 35 or 50 mm (1-5 and -/= while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Lens: 14, 18, 24, 35 or 50 mm (1-5 and -/= while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Lens</locale_1033></button_text>
+      <menu_text><locale_1033>Lens</locale_1033></menu_text>
+      <script>! _WalkLens</script>
+    </macro_item>
+    <macro_item guid="455d377a-f866-4db1-825b-e5070479f19d" bitmap_id="455d377a-f866-4db1-825b-e5070479f19d">
+      <text><locale_1033>Macro.WalkTwoPoint</locale_1033></text>
+      <tooltip><locale_1033>Two-point perspective: keep verticals vertical (T while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Two-point perspective: keep verticals vertical (T while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Two-Point</locale_1033></button_text>
+      <menu_text><locale_1033>Two-Point</locale_1033></menu_text>
+      <script>! _WalkTwoPoint</script>
+    </macro_item>
+    <macro_item guid="2b7ca373-2a6b-45c3-b33d-3810cea4985a" bitmap_id="2b7ca373-2a6b-45c3-b33d-3810cea4985a">
+      <text><locale_1033>Macro.WalkDisplayMode</locale_1033></text>
+      <tooltip><locale_1033>Display mode: cycle viewport display modes (V while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Display mode: cycle viewport display modes (V while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Display Mode</locale_1033></button_text>
+      <menu_text><locale_1033>Display Mode</locale_1033></menu_text>
+      <script>! _WalkDisplayMode</script>
+    </macro_item>
+    <macro_item guid="6df96659-090e-499b-a4aa-7cc9e496a21a" bitmap_id="6df96659-090e-499b-a4aa-7cc9e496a21a">
+      <text><locale_1033>Macro.WalkFrame</locale_1033></text>
+      <tooltip><locale_1033>Frame: aspect frame for shots, 16:9, 3:2, 4:5, 1:1, A, 2.39:1 or off (F while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Frame: aspect frame for shots, 16:9, 3:2, 4:5, 1:1, A, 2.39:1 or off (F while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Frame</locale_1033></button_text>
+      <menu_text><locale_1033>Frame</locale_1033></menu_text>
+      <script>! _WalkFrame</script>
+    </macro_item>
+    <macro_item guid="cfcb2264-b244-4998-8c29-df2a33054318" bitmap_id="cfcb2264-b244-4998-8c29-df2a33054318">
+      <text><locale_1033>Macro.WalkGuides</locale_1033></text>
+      <tooltip><locale_1033>Guides: rule-of-thirds grid and eye-level horizon (G while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Guides: rule-of-thirds grid and eye-level horizon (G while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Guides</locale_1033></button_text>
+      <menu_text><locale_1033>Guides</locale_1033></menu_text>
+      <script>! _WalkGuides</script>
+    </macro_item>
+    <macro_item guid="92d9be10-596f-48d1-9c1c-f67bcc7ff999" bitmap_id="92d9be10-596f-48d1-9c1c-f67bcc7ff999">
+      <text><locale_1033>Macro.WalkScreenshot</locale_1033></text>
+      <tooltip><locale_1033>Screenshot: save the view as a PNG and a named view (P while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Screenshot: save the view as a PNG and a named view (P while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Screenshot</locale_1033></button_text>
+      <menu_text><locale_1033>Screenshot</locale_1033></menu_text>
+      <script>! _WalkScreenshot</script>
+    </macro_item>
+    <macro_item guid="1c912ed7-9005-4d70-a89d-ad8a689b6c01" bitmap_id="1c912ed7-9005-4d70-a89d-ad8a689b6c01">
+      <text><locale_1033>Macro.WalkSaveView</locale_1033></text>
+      <tooltip><locale_1033>Save view: store the current view as named view "Walk NN" (N while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Save view: store the current view as named view "Walk NN" (N while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Save View</locale_1033></button_text>
+      <menu_text><locale_1033>Save View</locale_1033></menu_text>
+      <script>! _WalkSaveView</script>
+    </macro_item>
+    <macro_item guid="1c8660de-64c8-4738-86a6-7c9171b564e0" bitmap_id="1c8660de-64c8-4738-86a6-7c9171b564e0">
+      <text><locale_1033>Macro.WalkTour</locale_1033></text>
+      <tooltip><locale_1033>Tour: animate through the saved Walk views (, and . step views while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Tour: animate through the saved Walk views (, and . step views while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Tour</locale_1033></button_text>
+      <menu_text><locale_1033>Tour</locale_1033></menu_text>
+      <script>! _WalkTour</script>
+    </macro_item>
+    <macro_item guid="63072a8b-5231-4384-8bec-1da8c12d39dd" bitmap_id="63072a8b-5231-4384-8bec-1da8c12d39dd">
+      <text><locale_1033>Macro.WalkSun</locale_1033></text>
+      <tooltip><locale_1033>Sun: set the sun time ([ and ] change the hour while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Sun: set the sun time ([ and ] change the hour while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Sun</locale_1033></button_text>
+      <menu_text><locale_1033>Sun</locale_1033></menu_text>
+      <script>! _WalkSun</script>
+    </macro_item>
+    <macro_item guid="59c0a3ac-393f-4d52-9de1-ffcce26506a0" bitmap_id="59c0a3ac-393f-4d52-9de1-ffcce26506a0">
+      <text><locale_1033>Macro.WalkBlocks</locale_1033></text>
+      <tooltip><locale_1033>Blocks: block mode easter egg — right-click place, hold left-click break (B while walking)</locale_1033></tooltip>
+      <help_text><locale_1033>Blocks: block mode easter egg — right-click place, hold left-click break (B while walking)</locale_1033></help_text>
+      <button_text><locale_1033>Blocks</locale_1033></button_text>
+      <menu_text><locale_1033>Blocks</locale_1033></menu_text>
+      <script>! _WalkBlocks</script>
+    </macro_item>
+  </macros>
+  <icons>
+    <icon guid="b4160536-b936-4971-a2ce-dbd49d9f0b59">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M1,33.5 L12.2,20" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M12.33,33.5 L16.06,20" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M23.67,33.5 L19.94,20" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M35,33.5 L23.8,20" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M12.2,20 L23.8,20" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M7.63,25.5 L28.37,25.5" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M1,33.5 L35,33.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="20.26" cy="6.56" r="2.85" fill="#0ca678"/><polyline points="19.25,11.25 17.41,18.98" stroke="#0ca678" stroke-width="2.94" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.41,18.98 20.72,24.04 21.27,29.47" stroke="#0ca678" stroke-width="2.94" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.41,18.98 13.91,24.13 10.78,28.55" stroke="#0ca678" stroke-width="2.94" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.06,12.54 21.64,16.77 24.4,18.61" stroke="#0ca678" stroke-width="2.36" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.06,12.54 15.94,16.04 14.1,19.35" stroke="#0ca678" stroke-width="2.36" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M1,33.5 L12.2,20" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M12.33,33.5 L16.06,20" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M23.67,33.5 L19.94,20" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M35,33.5 L23.8,20" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M12.2,20 L23.8,20" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M7.63,25.5 L28.37,25.5" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M1,33.5 L35,33.5" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="20.26" cy="6.56" r="2.85" fill="#0ca678"/><polyline points="19.25,11.25 17.41,18.98" stroke="#0ca678" stroke-width="2.94" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.41,18.98 20.72,24.04 21.27,29.47" stroke="#0ca678" stroke-width="2.94" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.41,18.98 13.91,24.13 10.78,28.55" stroke="#0ca678" stroke-width="2.94" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.06,12.54 21.64,16.77 24.4,18.61" stroke="#0ca678" stroke-width="2.36" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.06,12.54 15.94,16.04 14.1,19.35" stroke="#0ca678" stroke-width="2.36" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></dark>
+    </icon>
+    <icon guid="394d49fa-76a4-4f84-9a4f-fa9eb1f6ec1d">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M3,33.25 L33,33.25" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M4,11.5 L10,11.5" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M2.5,16.5 L9.5,16.5" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M4,21.5 L8.5,21.5" stroke="#adb5bd" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="20.5" cy="5.5" r="3.1" fill="#0ca678"/><polyline points="19.4,10.6 17.4,19" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.4,19 21,24.5 21.6,30.4" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.4,19 13.6,24.6 10.2,29.4" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.2,12 22,16.6 25,18.6" stroke="#0ca678" stroke-width="2.56" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.2,12 15.8,15.8 13.8,19.4" stroke="#0ca678" stroke-width="2.56" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M3,33.25 L33,33.25" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M4,11.5 L10,11.5" stroke="#868e96" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M2.5,16.5 L9.5,16.5" stroke="#868e96" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M4,21.5 L8.5,21.5" stroke="#868e96" stroke-width="1.5" stroke-linecap="round" fill="none"/><circle cx="20.5" cy="5.5" r="3.1" fill="#0ca678"/><polyline points="19.4,10.6 17.4,19" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.4,19 21,24.5 21.6,30.4" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="17.4,19 13.6,24.6 10.2,29.4" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.2,12 22,16.6 25,18.6" stroke="#0ca678" stroke-width="2.56" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="19.2,12 15.8,15.8 13.8,19.4" stroke="#0ca678" stroke-width="2.56" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></dark>
+    </icon>
+    <icon guid="b4e5c79c-09d0-45b2-9a03-67c0d9a0289c">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M2,33 L34,33" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M16,6 L33,6" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M27,10 L27,29.5" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M24.6,10.6 29.4,10.6 27,6.9 Z" fill="#212529"/><path d="M24.6,28.9 29.4,28.9 27,32.25 Z" fill="#212529"/><circle cx="10" cy="6" r="3.1" fill="#0ca678"/><polyline points="10,11 10,20.5" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="7.4,30.4 10,20.5 12.6,30.4" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="6.4,18.8 10,12.6 13.6,18.8" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M2,33 L34,33" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M16,6 L33,6" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M27,10 L27,29.5" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M24.6,10.6 29.4,10.6 27,6.9 Z" fill="#e1e1e1"/><path d="M24.6,28.9 29.4,28.9 27,32.25 Z" fill="#e1e1e1"/><circle cx="10" cy="6" r="3.1" fill="#0ca678"/><polyline points="10,11 10,20.5" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="7.4,30.4 10,20.5 12.6,30.4" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polyline points="6.4,18.8 10,12.6 13.6,18.8" stroke="#0ca678" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></dark>
+    </icon>
+    <icon guid="3dd4cfec-7ae5-4cfc-ba86-d9008afcb0dd">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M5,18 L29.25,4 A28,28 0 0,1 29.25,32 Z" fill="#228be6" fill-opacity="0.22"/><path d="M13.77,15.98 L29.85,12.26" stroke="#868e96" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M13.77,20.02 L29.85,23.74" stroke="#868e96" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7.6,16.5 L29.25,4" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M7.6,19.5 L29.25,32" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M29.25,4 A28,28 0 0,1 29.25,32" stroke="#228be6" stroke-width="2.25" stroke-linecap="round" fill="none"/><path d="M2,18 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M3.5,18 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#212529" fill-rule="evenodd"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M5,18 L29.25,4 A28,28 0 0,1 29.25,32 Z" fill="#228be6" fill-opacity="0.22"/><path d="M13.77,15.98 L29.85,12.26" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M13.77,20.02 L29.85,23.74" stroke="#adb5bd" stroke-width="1.2" stroke-linecap="round" fill="none"/><path d="M7.6,16.5 L29.25,4" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M7.6,19.5 L29.25,32" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M29.25,4 A28,28 0 0,1 29.25,32" stroke="#228be6" stroke-width="2.25" stroke-linecap="round" fill="none"/><path d="M2,18 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M3.5,18 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#e1e1e1" fill-rule="evenodd"/></svg></dark>
+    </icon>
+    <icon guid="455d377a-f866-4db1-825b-e5070479f19d">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M6.4,14 L29.6,14" stroke="#adb5bd" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M9.5,9.88 L5.87,12.18" stroke="#868e96" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M9.5,21.58 L5.21,16.58" stroke="#868e96" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M26.5,9.88 L30.13,12.18" stroke="#868e96" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M26.5,21.58 L30.79,16.58" stroke="#868e96" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M9.5,9.88 18,4.5 18,31.5 9.5,21.58 Z" fill="#dee2e6"/><path d="M18,4.5 26.5,9.88 26.5,21.58 18,31.5 Z" fill="#f8f9fa"/><path d="M9.5,9.88 18,4.5 26.5,9.88 M9.5,21.58 18,31.5 26.5,21.58" stroke="#212529" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9.5,9.88 L9.5,21.58" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M18,4.5 L18,31.5" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M26.5,9.88 L26.5,21.58" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M0,14 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M1.5,14 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#212529" fill-rule="evenodd"/><path d="M30,14 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M31.5,14 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#212529" fill-rule="evenodd"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M6.4,14 L29.6,14" stroke="#868e96" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M9.5,9.88 L5.87,12.18" stroke="#adb5bd" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M9.5,21.58 L5.21,16.58" stroke="#adb5bd" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M26.5,9.88 L30.13,12.18" stroke="#adb5bd" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M26.5,21.58 L30.79,16.58" stroke="#adb5bd" stroke-width="0.75" stroke-linecap="round" fill="none"/><path d="M9.5,9.88 18,4.5 18,31.5 9.5,21.58 Z" fill="#343a40"/><path d="M18,4.5 26.5,9.88 26.5,21.58 18,31.5 Z" fill="#495057"/><path d="M9.5,9.88 18,4.5 26.5,9.88 M9.5,21.58 18,31.5 26.5,21.58" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M9.5,9.88 L9.5,21.58" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M18,4.5 L18,31.5" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M26.5,9.88 L26.5,21.58" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M0,14 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M1.5,14 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#e1e1e1" fill-rule="evenodd"/><path d="M30,14 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M31.5,14 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#e1e1e1" fill-rule="evenodd"/></svg></dark>
+    </icon>
+    <icon guid="2b7ca373-2a6b-45c3-b33d-3810cea4985a">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><defs><linearGradient id="rwShade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#868e96"/></linearGradient></defs><path d="M14,9.5 A11,11 0 0,1 14,31.5 Z" fill="url(#rwShade)"/><path d="M14,9.5 A5,11 0 0,0 14,31.5" stroke="#212529" stroke-width="0.9" fill="none"/><path d="M3,20.5 L14,20.5" stroke="#212529" stroke-width="0.9" stroke-linecap="round" fill="none"/><path d="M14,9.5 L14,31.5" stroke="#212529" stroke-width="1" stroke-linecap="round" fill="none"/><circle cx="14" cy="20.5" r="11" stroke="#212529" stroke-width="1.5" fill="none"/><path d="M24.18,9.07 A4.6,4.6 0 1,1 31.14,11.27" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M29.01,12.76 32.79,12.92 30.15,9.15 Z" fill="#228be6"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><defs><linearGradient id="rwShade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#868e96"/><stop offset="1" stop-color="#343a40"/></linearGradient></defs><path d="M14,9.5 A11,11 0 0,1 14,31.5 Z" fill="url(#rwShade)"/><path d="M14,9.5 A5,11 0 0,0 14,31.5" stroke="#e1e1e1" stroke-width="0.9" fill="none"/><path d="M3,20.5 L14,20.5" stroke="#e1e1e1" stroke-width="0.9" stroke-linecap="round" fill="none"/><path d="M14,9.5 L14,31.5" stroke="#e1e1e1" stroke-width="1" stroke-linecap="round" fill="none"/><circle cx="14" cy="20.5" r="11" stroke="#e1e1e1" stroke-width="1.5" fill="none"/><path d="M24.18,9.07 A4.6,4.6 0 1,1 31.14,11.27" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M29.01,12.76 32.79,12.92 30.15,9.15 Z" fill="#228be6"/></svg></dark>
+    </icon>
+    <icon guid="6df96659-090e-499b-a4aa-7cc9e496a21a">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><rect x="3" y="6" width="30" height="24" fill="#ced4da"/><rect x="6.5" y="11" width="23" height="14" fill="#f8f9fa"/><rect x="6.5" y="11" width="23" height="14" fill="#228be6" fill-opacity="0.22"/><rect x="3" y="6" width="30" height="24" fill="none" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.5,15 V11 H10.5 M25.5,11 H29.5 V15 M29.5,21 V25 H25.5 M10.5,25 H6.5 V21" stroke="#228be6" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><rect x="3" y="6" width="30" height="24" fill="#212529"/><rect x="6.5" y="11" width="23" height="14" fill="#495057"/><rect x="6.5" y="11" width="23" height="14" fill="#228be6" fill-opacity="0.22"/><rect x="3" y="6" width="30" height="24" fill="none" stroke="#e1e1e1" stroke-width="1.5" stroke-linejoin="round"/><path d="M6.5,15 V11 H10.5 M25.5,11 H29.5 V15 M29.5,21 V25 H25.5 M10.5,25 H6.5 V21" stroke="#228be6" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></dark>
+    </icon>
+    <icon guid="cfcb2264-b244-4998-8c29-df2a33054318">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><rect x="3" y="6" width="30" height="24" fill="#f8f9fa"/><rect x="3" y="6" width="30" height="12" fill="#228be6" fill-opacity="0.22"/><path d="M13,6 V30 M23,6 V30 M3,14 H33 M3,22 H33" stroke="#868e96" stroke-width="1" fill="none"/><rect x="3" y="6" width="30" height="24" fill="none" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/><path d="M1,18 L35,18" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><rect x="3" y="6" width="30" height="24" fill="#495057"/><rect x="3" y="6" width="30" height="12" fill="#228be6" fill-opacity="0.22"/><path d="M13,6 V30 M23,6 V30 M3,14 H33 M3,22 H33" stroke="#adb5bd" stroke-width="1" fill="none"/><rect x="3" y="6" width="30" height="24" fill="none" stroke="#e1e1e1" stroke-width="1.5" stroke-linejoin="round"/><path d="M1,18 L35,18" stroke="#228be6" stroke-width="2" stroke-linecap="round" fill="none"/></svg></dark>
+    </icon>
+    <icon guid="92d9be10-596f-48d1-9c1c-f67bcc7ff999">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M5.5,11 H11 L13,7.5 H23 L25,11 H30.5 A2.5,2.5 0 0,1 33,13.5 V27.5 A2.5,2.5 0 0,1 30.5,30 H5.5 A2.5,2.5 0 0,1 3,27.5 V13.5 A2.5,2.5 0 0,1 5.5,11 Z" fill="#f8f9fa" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/><rect x="27" y="13.5" width="3.5" height="2" rx="0.5" fill="#212529"/><circle cx="18" cy="20.5" r="6.5" fill="#228be6" stroke="#212529" stroke-width="1.5"/><circle cx="18" cy="20.5" r="3" fill="#1864ab"/><circle cx="16.2" cy="18.6" r="1.3" fill="#ffffff"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M5.5,11 H11 L13,7.5 H23 L25,11 H30.5 A2.5,2.5 0 0,1 33,13.5 V27.5 A2.5,2.5 0 0,1 30.5,30 H5.5 A2.5,2.5 0 0,1 3,27.5 V13.5 A2.5,2.5 0 0,1 5.5,11 Z" fill="#495057" stroke="#e1e1e1" stroke-width="1.5" stroke-linejoin="round"/><rect x="27" y="13.5" width="3.5" height="2" rx="0.5" fill="#e1e1e1"/><circle cx="18" cy="20.5" r="6.5" fill="#228be6" stroke="#e1e1e1" stroke-width="1.5"/><circle cx="18" cy="20.5" r="3" fill="#1864ab"/><circle cx="16.2" cy="18.6" r="1.3" fill="#ffffff"/></svg></dark>
+    </icon>
+    <icon guid="1c912ed7-9005-4d70-a89d-ad8a689b6c01">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><rect x="3" y="8.25" width="25" height="21" fill="#f8f9fa"/><rect x="11" y="14.5" width="9" height="8" fill="#dee2e6" stroke="#868e96" stroke-width="1"/><path d="M3,8.25 L11,14.5" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M28,8.25 L20,14.5" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M3,29.25 L11,22.5" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M28,29.25 L20,22.5" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><rect x="3" y="8.25" width="25" height="21" fill="none" stroke="#212529" stroke-width="1.5" stroke-linejoin="round"/><path d="M22.5,2.5 32.5,2.5 32.5,19.5 27.5,15.25 22.5,19.5 Z" fill="#12b886" stroke="#087f5b" stroke-width="1" stroke-linejoin="round"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><rect x="3" y="8.25" width="25" height="21" fill="#495057"/><rect x="11" y="14.5" width="9" height="8" fill="#343a40" stroke="#adb5bd" stroke-width="1"/><path d="M3,8.25 L11,14.5" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M28,8.25 L20,14.5" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M3,29.25 L11,22.5" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M28,29.25 L20,22.5" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><rect x="3" y="8.25" width="25" height="21" fill="none" stroke="#e1e1e1" stroke-width="1.5" stroke-linejoin="round"/><path d="M22.5,2.5 32.5,2.5 32.5,19.5 27.5,15.25 22.5,19.5 Z" fill="#12b886" stroke="#087f5b" stroke-width="1" stroke-linejoin="round"/></svg></dark>
+    </icon>
+    <icon guid="1c8660de-64c8-4738-86a6-7c9171b564e0">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M6.37,24.71 L9.63,12.29" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M13.88,8.59 L23.62,7.41" stroke="#212529" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M2.5,28 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M4,28 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#212529" fill-rule="evenodd"/><path d="M7.5,9 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M9,9 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#212529" fill-rule="evenodd"/><path d="M24,7 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M25.5,7 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#212529" fill-rule="evenodd"/><circle cx="25.5" cy="25.5" r="8" fill="#12b886" stroke="#087f5b" stroke-width="1"/><path d="M22.75,21.25 22.75,29.75 30,25.5 Z" fill="#ffffff" stroke="#ffffff" stroke-width="1" stroke-linejoin="round"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M6.37,24.71 L9.63,12.29" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M13.88,8.59 L23.62,7.41" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M2.5,28 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M4,28 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#e1e1e1" fill-rule="evenodd"/><path d="M7.5,9 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M9,9 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#e1e1e1" fill-rule="evenodd"/><path d="M24,7 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0 Z M25.5,7 a1.5,1.5 0 1,0 3,0 a1.5,1.5 0 1,0 -3,0 Z" fill="#e1e1e1" fill-rule="evenodd"/><circle cx="25.5" cy="25.5" r="8" fill="#12b886" stroke="#087f5b" stroke-width="1"/><path d="M22.75,21.25 22.75,29.75 30,25.5 Z" fill="#ffffff" stroke="#ffffff" stroke-width="1" stroke-linejoin="round"/></svg></dark>
+    </icon>
+    <icon guid="63072a8b-5231-4384-8bec-1da8c12d39dd">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M20,12 L22.6,12" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M12,20 L12,22.6" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M6.34,17.66 L4.5,19.5" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M4,12 L1.4,12" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M6.34,6.34 L4.5,4.5" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M12,4 L12,1.4" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M17.66,6.34 L19.5,4.5" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="12" cy="12" r="5.6" fill="#fd7e14" stroke="#d9480f" stroke-width="1"/><circle cx="25" cy="25" r="8.5" fill="#f8f9fa" stroke="#212529" stroke-width="1.5"/><path d="M31,25 L32,25" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M25,31 L25,32" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M19,25 L18,25" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M25,19 L25,18" stroke="#868e96" stroke-width="1" stroke-linecap="round" fill="none"/><polyline points="22.3,22.3 25,25 25,19.2" stroke="#212529" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="25" cy="25" r="1.1" fill="#212529"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><path d="M20,12 L22.6,12" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M12,20 L12,22.6" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M6.34,17.66 L4.5,19.5" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M4,12 L1.4,12" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M6.34,6.34 L4.5,4.5" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M12,4 L12,1.4" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M17.66,6.34 L19.5,4.5" stroke="#fd7e14" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="12" cy="12" r="5.6" fill="#fd7e14" stroke="#d9480f" stroke-width="1"/><circle cx="25" cy="25" r="8.5" fill="#495057" stroke="#e1e1e1" stroke-width="1.5"/><path d="M31,25 L32,25" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M25,31 L25,32" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M19,25 L18,25" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><path d="M25,19 L25,18" stroke="#adb5bd" stroke-width="1" stroke-linecap="round" fill="none"/><polyline points="22.3,22.3 25,25 25,19.2" stroke="#e1e1e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="25" cy="25" r="1.1" fill="#e1e1e1"/></svg></dark>
+    </icon>
+    <icon guid="59c0a3ac-393f-4d52-9de1-ffcce26506a0">
+      <light><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><polygon points="18,4 31,10.5 18,17 5,10.5" fill="#ced4da"/><polygon points="5,10.5 18,17 18,32 5,25.5" fill="#adb5bd"/><polygon points="31,10.5 31,25.5 18,32 18,17" fill="#868e96"/><polygon points="13,9 15,10 13,11 11,10" fill="#adb5bd"/><polygon points="23,10 25,11 23,12 21,11" fill="#adb5bd"/><polygon points="19,7 21,8 19,9 17,8" fill="#f1f3f5"/><polygon points="8,15 11,16.5 11,19.5 8,18" fill="#868e96"/><polygon points="13,22 16,23.5 16,26.5 13,25" fill="#868e96"/><polygon points="9,22 12,23.5 12,26.5 9,25" fill="#f1f3f5"/><polygon points="20,24 23,22.5 23,25.5 20,27" fill="#495057"/><polygon points="25,16 28,14.5 28,17.5 25,19" fill="#495057"/><polygon points="26,22 29,20.5 29,23.5 26,25" fill="#495057"/><path d="M5,10.5 L18,17 L31,10.5 M18,17 L18,32" stroke="#212529" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polygon points="18,4 31,10.5 31,25.5 18,32 5,25.5 5,10.5" stroke="#212529" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg></light>
+      <dark><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><polygon points="18,4 31,10.5 18,17 5,10.5" fill="#adb5bd"/><polygon points="5,10.5 18,17 18,32 5,25.5" fill="#868e96"/><polygon points="31,10.5 31,25.5 18,32 18,17" fill="#495057"/><polygon points="13,9 15,10 13,11 11,10" fill="#868e96"/><polygon points="23,10 25,11 23,12 21,11" fill="#868e96"/><polygon points="19,7 21,8 19,9 17,8" fill="#ced4da"/><polygon points="8,15 11,16.5 11,19.5 8,18" fill="#495057"/><polygon points="13,22 16,23.5 16,26.5 13,25" fill="#495057"/><polygon points="9,22 12,23.5 12,26.5 9,25" fill="#ced4da"/><polygon points="20,24 23,22.5 23,25.5 20,27" fill="#343a40"/><polygon points="25,16 28,14.5 28,17.5 25,19" fill="#343a40"/><polygon points="26,22 29,20.5 29,23.5 26,25" fill="#343a40"/><path d="M5,10.5 L18,17 L31,10.5 M18,17 L18,32" stroke="#e1e1e1" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="none"/><polygon points="18,4 31,10.5 31,25.5 18,32 5,25.5 5,10.5" stroke="#e1e1e1" stroke-width="1.5" stroke-linejoin="round" fill="none"/></svg></dark>
+    </icon>
+  </icons>
+  <bitmaps />
+</RhinoUI>

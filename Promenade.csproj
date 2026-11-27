@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Rhino 9 for Mac runs plug-ins on .NET 10. -->
+    <TargetFramework>net10.0</TargetFramework>
+    <TargetExt>.rhp</TargetExt>
+    <AssemblyName>Promenade</AssemblyName>
+    <RootNamespace>Promenade</RootNamespace>
+    <Title>Promenade</Title>
+    <Version>0.3.0</Version>
+    <Company>Seongbeen Lee</Company>
+    <Authors>Seongbeen Lee</Authors>
+    <Copyright>Copyright © 2026 Seongbeen Lee</Copyright>
+    <Description>First-person architectural walkthrough for Rhino 9 on macOS.</Description>
+    <Nullable>enable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <RhinoResources>/Applications/Rhino 9.app/Contents/Frameworks/RhCore.framework/Versions/A/Resources</RhinoResources>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="src/**/*.cs" />
+    <EmbeddedResource Include="src/EmbeddedResources/plugin.ico" LogicalName="Promenade.EmbeddedResources.plugin.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Rhino supplies these at runtime, so they are compiled against but not copied. -->
+    <PackageReference Include="RhinoCommon" Version="9.0.26300.9401" PrivateAssets="all" ExcludeAssets="runtime" />
+    <Reference Include="Microsoft.macOS">
+      <HintPath>$(RhinoResources)/Microsoft.macOS.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Shipped by us: JoltPhysicsSharp.dll plus only the macOS libjoltc.dylib (universal, single precision),
+         flat next to the .rhp instead of under runtimes/<rid>/native for every platform. -->
+    <PackageReference Include="JoltPhysicsSharp" Version="2.26.0" />
+    <PackageReference Include="JoltPhysics.Native" Version="1.3.0" ExcludeAssets="native" GeneratePathProperty="true" />
+    <None Include="$(PkgJoltPhysics_Native)/runtimes/osx/native/libjoltc.dylib" Link="libjoltc.dylib"
+          CopyToOutputDirectory="PreserveNewest" Visible="false" />
+  </ItemGroup>
+</Project>

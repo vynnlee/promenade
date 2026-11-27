@@ -1,0 +1,25 @@
+name: Promenade
+version: 0.3.0
+authors:
+    - Seongbeen Lee
+description: >
+    First-person architectural walkthroughs for Rhinoceros 9 on macOS (Apple Silicon). Walk
+    through your model with WASD and mouse look, with collision, stairs and gravity, or fly
+    freely. Set eye height, switch lens presets, keep verticals with two-point perspective,
+    save views and play them back as a tour. Set the sun time and capture screenshots from
+    the Promenade toolbar or while walking.
+url: https://github.com/vynnlee/promenade
+keywords:
+    - walk
+    - walkthrough
+    - first-person
+    - navigation
+    - architecture
+    - interior
+    - camera
+    - perspective
+    - two-point
+    - tour
+    - screenshot
+    - mac
+icon: icon.png
