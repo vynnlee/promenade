@@ -1,71 +1,67 @@
 # Food4Rhino listing (ready to paste)
 
-Items marked **[author]** can only be done by Seongbeen Lee (they need his Rhino account, email or screenshots).
+Items marked **[author]** can only be done by Seongbeen Lee (they need the Rhino account).
 
 ## Fields
 
 | Field | Value |
 |---|---|
 | Title | Promenade |
-| Short description | First-person walkthroughs for Rhinoceros 9 on macOS: walk at eye height, frame shots and capture views. Free, MIT. |
-| Category (suggestion) | Rendering & Presentation, or Visualization (pick the closest category Food4Rhino offers) |
-| License | MIT (open source) |
-| Price | Free |
-| Platform | Rhino for Mac |
-| Rhino version | 9 |
-| Support email | **TODO (author to fill)** |
-| Website / source | https://github.com/vynnlee/promenade |
-| Support / issues | https://github.com/vynnlee/promenade/issues |
-| Project icon | `ui/icon-512.png` (512×512 badge; master SVG in `design/logo/final/`) |
+| Short description | Walk through your model in first person in Rhino 9 for Mac, then frame and capture shots. |
+| Category | The closest Food4Rhino offers to rendering, presentation or visualization |
+| License | MIT (free, open source) |
+| Platform | Rhino 9 for Mac |
+| Support email | vynnlee.vsl@gmail.com |
+| Website | https://github.com/vynnlee/promenade |
+| Project icon | `ui/icon-512.png` |
 
 ## Body
 
-> Promenade lets you walk through your model in first person at human eye level, then compose and capture
-> shots without leaving the viewport. Made for architects, interior and spatial designers.
+> Promenade lets you walk through your Rhino model at eye level and capture shots from the viewport. It is made for architects and interior designers.
 >
 > **Features**
-> - Walk with WASD and mouse look, with collision, stairs (up to 0.4 m), slopes (up to 45°) and gravity, powered by Jolt Physics. Run, jump, or switch to fly mode.
+> - Walk with WASD and the mouse. Collision, stairs, slopes and gravity use Jolt Physics. You can run, jump or fly.
 > - Right-click to teleport to the floor under the crosshair.
-> - Eye-height presets: Standing 1.6 m, Camera 1.2 m, Wheelchair 1.2 m, Child 1.0 m. The collision body changes with them, so you can check what a wheelchair user or a child can pass under.
-> - Measure distances and floor-to-ceiling heights while walking.
-> - Lens presets 14–50 mm, zoom 10–200 mm, and two-point perspective that keeps verticals vertical.
-> - Shot frames (16:9, 3:2, 4:5, 1:1, A, 2.39:1) and composition guides with an eye-level horizon.
-> - Screenshots of the framed area at render size, each saved with a matching named view.
-> - Save views, step through them, and play them back as a tour.
-> - Change the sun time to check daylight and shadows.
-> - A Promenade toolbar, and an optional debug HUD.
+> - Eye height presets: Standing, Camera, Wheelchair and Child.
+> - Measure distances and ceiling heights while you walk.
+> - Lens presets, zoom and two-point perspective.
+> - Aspect frames and composition guides.
+> - Screenshots of the framed area, each saved with a named view.
+> - Saved views and a tour that plays them back.
+> - Sun time control.
 >
 > **Requirements**
-> - Rhinoceros 9 for Mac on Apple Silicon
+> Rhino 9 for Mac on Apple Silicon.
 >
 > **How to use**
-> 1. Install from the Package Manager (search "Promenade") and restart Rhino.
-> 2. Run `Walk` or click Walk on the Promenade toolbar.
-> 3. Move with WASD, look with the mouse. Tab flies, F picks a frame, G shows guides, P saves a shot, Esc exits.
+> 1. Install Promenade from the Package Manager and restart Rhino.
+> 2. Run Walk, or click Walk on the Promenade toolbar.
+> 3. Press Esc to stop.
 >
-> Full key list and commands: https://github.com/vynnlee/promenade
+> Keys and commands: https://github.com/vynnlee/promenade
 >
-> **Support**
-> Report bugs and ideas on GitHub Issues: https://github.com/vynnlee/promenade/issues
+> Bugs and ideas: https://github.com/vynnlee/promenade/issues
 >
-> **License**
-> MIT, free and open source. Includes Jolt Physics and JoltPhysicsSharp (both MIT).
+> MIT license. Includes Jolt Physics and JoltPhysicsSharp (MIT).
 >
 > Rhinoceros is a registered trademark of Robert McNeel & Associates. Promenade is not affiliated with or endorsed by McNeel.
 
-## Media to capture [author]
+## Media
 
-PNG, 1920×1080 unless noted. Use a well-lit interior model; hide the debug HUD unless it is the subject.
+Ready in `docs/images/food4rhino/`: 1920×1280 JPG (3:2), shot in Shaded mode in the showcase hall that
+`test/showcase.py` builds. Food4Rhino shows gallery images at 480 px wide and crops a 100×100 thumbnail from
+the centre, so captions stay large and the subject stays central. Upload them in this order:
 
-| # | Shot | Notes |
+| # | File | Shows |
 |---|---|---|
-| 1 | Hero: walking through an interior | Rendered mode, 24 mm, two-point on. Also used as `docs/images/hero.png`. |
-| 2 | Toolbar | The Promenade toolbar over the Rhino window; a tight crop is fine (e.g. 1200×400). |
-| 3 | Eye-height comparison | Same spot at Standing 1.6 m vs Child 1.0 m (or Wheelchair 1.2 m), side by side. |
-| 4 | Framing | 4:5 or 2.39:1 frame with guides (G) and two-point (T) on, showing the eye-level horizon. |
-| 5 | Debug HUD | HUD on (`` ` ``), showing position, speed and collision mesh stats. |
-| 6 | Block mode | A few placed stone blocks in Rendered mode, with the block arm and slot bar visible. |
-| 7 (optional) | Short GIF / video | 5–10 s walk with a teleport and a stair climb; GIF under ~10 MB or an MP4. |
+| 1 | `01-hero.jpg` | Walking through the hall, 24 mm, two-point on (also `docs/images/hero.jpg` in the README) |
+| 2 | `02-eye.jpg` | Same spot at Standing 1.60 m vs Child 1.00 m |
+| 3 | `03-frame.jpg` | 4:5 frame, guides and two-point perspective |
+| 4 | `04-toolbar.jpg` | The toolbar and every command with its key |
+| 5 | `05-hud.jpg` | Debug HUD |
+| 6 | `06-blocks.jpg` | Block mode: placed blocks, arm and slot bar |
+
+Project icon: `ui/icon-512.png`. Video (optional, later): Food4Rhino embeds YouTube or Vimeo links only.
 
 ## Publishing checklist
 

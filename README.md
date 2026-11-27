@@ -9,8 +9,7 @@ Promenade — first-person walkthroughs for Rhinoceros® 9 on macOS.
 Walk your model at human eye level, then compose and capture shots without leaving the viewport.
 Made for architects, interior and spatial designers.
 
-<!-- TODO: capture docs/images/hero.png (1920×1080 walking shot), then restore:
-![Promenade walking through a model](docs/images/hero.png) -->
+![Promenade walking through a model](docs/images/hero.jpg)
 
 Free and open source (MIT). Apple Silicon only.
 
