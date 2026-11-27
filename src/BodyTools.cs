@@ -29,8 +29,8 @@ internal static class BodyTools
     // Called every walk tick before the walker moves; take only this file's keys.
     internal static void OnTick(WalkSession s)
     {
-        if (s.Input.TakePress(MacInput.KeyH)) SetPreset(s, (_preset + 1) % Presets.Length);
-        if (s.Input.TakePress(MacInput.KeyM)) Measure(s);
+        if (s.Input.TakePress(WalkKey.H)) SetPreset(s, (_preset + 1) % Presets.Length);
+        if (s.Input.TakePress(WalkKey.M)) Measure(s);
         if (s.Input.TakeClick()) Teleport(s);
     }
 

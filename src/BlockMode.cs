@@ -62,7 +62,7 @@ internal static class BlockMode
         if (_session != s) Begin(s, now);
         double dt = Math.Min(now - _tickAt, 0.1);
         _tickAt = now;
-        if (s.Input.TakePress(MacInput.KeyB)) Toggle();
+        if (s.Input.TakePress(WalkKey.B)) Toggle();
         if (!_on) return;
 
         // Arm bob: follows the distance walked, eases out when standing (or in the air).
@@ -226,7 +226,8 @@ internal static class BlockMode
     static string StoneTexture()
     {
         const int Texel = 8;
-        string dir = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Library", "Application Support", "Promenade");
+        // ~/Library/Application Support/Promenade on macOS, %LOCALAPPDATA%\Promenade on Windows.
+        string dir = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "Promenade");
         string file = Path.Combine(dir, "stone16.png");
         if (File.Exists(file)) return file;
         Directory.CreateDirectory(dir);

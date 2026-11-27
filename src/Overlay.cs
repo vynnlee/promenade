@@ -90,8 +90,8 @@ internal static class Overlay
     // Called every walk tick before the walker moves; takes only this file's keys.
     internal static void OnTick(WalkSession s)
     {
-        if (s.Input.TakePress(MacInput.KeyF3) | s.Input.TakePress(MacInput.KeyGrave)) ToggleHud();
-        if (s.Input.TakePress(MacInput.KeyG)) ToggleGuides();
+        if (s.Input.TakePress(WalkKey.F3) | s.Input.TakePress(WalkKey.Grave)) ToggleHud();
+        if (s.Input.TakePress(WalkKey.G)) ToggleGuides();
         // A click flips MouseLook without moving the camera, so nothing else would redraw the crosshair.
         if (_conduit.Enabled && (_crosshairOn && s.Input.MouseLook) != _crosshairDrawn) s.View.Redraw();
 

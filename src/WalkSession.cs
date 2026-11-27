@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using AppKit;
 using Rhino;
 using Rhino.Display;
 using Rhino.DocObjects;
@@ -10,7 +9,7 @@ using Rhino.Geometry;
 
 namespace Promenade;
 
-// One running walk: a ~120 Hz timer reads MacInput, moves the Jolt character (Walk) or the camera
+// One running walk: a ~120 Hz timer reads the input (IWalkInput), moves the Jolt character (Walk) or the camera
 // itself (Fly, no collision) and puts the active viewport's camera at the eye.
 internal sealed class WalkSession
 {
@@ -27,7 +26,7 @@ internal sealed class WalkSession
     readonly RhinoView _view;
     readonly double _unit;  // model units per meter
     readonly JoltWorld _world;
-    readonly MacInput _input;
+    readonly IWalkInput _input;
     readonly Eto.Forms.UITimer _timer;
     readonly Stopwatch _clock = Stopwatch.StartNew();
 
@@ -42,7 +41,7 @@ internal sealed class WalkSession
     // unless the name ends in M (meters).
     internal RhinoDoc Doc => _doc;
     internal RhinoView View => _view;
-    internal MacInput Input => _input;
+    internal IWalkInput Input => _input;
     internal JoltWorld World => _world;
     internal double Unit => _unit; // model units per meter
     internal bool Fly => _fly;
@@ -94,7 +93,7 @@ internal sealed class WalkSession
             _world = CreateWorld(ground, GroundPlaneZ(doc, ground) / _unit);
         WorldBuildSeconds = build.Elapsed.TotalSeconds;
 
-        _input = new MacInput();
+        _input = IWalkInput.Create(view);
         _timer = new Eto.Forms.UITimer { Interval = 1.0 / 120.0 };
         _timer.Elapsed += (_, _) => Tick();
     }
@@ -151,8 +150,8 @@ internal sealed class WalkSession
             _lastTime = now;
 
             // Losing focus would leave the cursor locked and keys stuck down.
-            if (_input.TakePress(MacInput.KeyEscape) || !NSApplication.SharedApplication.Active) { Stop(); return; }
-            if (_input.TakePress(MacInput.KeyTab))
+            if (_input.TakePress(WalkKey.Escape) || !_input.AppActive) { Stop(); return; }
+            if (_input.TakePress(WalkKey.Tab))
             {
                 _fly = !_fly;
                 _velocityM.Z = 0;
@@ -189,14 +188,14 @@ internal sealed class WalkSession
         _pitch = WalkPhysics.ClampPitch(_pitch - dy * MouseRadiansPerPoint);
         if (_view.ActiveViewport.IsTwoPointPerspectiveProjection)
             _pitch = Math.Clamp(_pitch, -ViewTools.MaxTwoPointPitch, ViewTools.MaxTwoPointPitch);
-        if (!_fly) _yaw += Axis(MacInput.KeyQ, MacInput.KeyE) * TurnRadiansPerSecond * dt;
+        if (!_fly) _yaw += Axis(WalkKey.Q, WalkKey.E) * TurnRadiansPerSecond * dt;
     }
 
     void Move(double dt)
     {
-        bool jump = _input.TakePress(MacInput.KeySpace); // taken every tick so a press in Fly doesn't fire later
-        double forward = Axis(MacInput.KeyW, MacInput.KeyS) + Axis(MacInput.KeyUp, MacInput.KeyDown);
-        double strafe = Axis(MacInput.KeyD, MacInput.KeyA) + Axis(MacInput.KeyRight, MacInput.KeyLeft);
+        bool jump = _input.TakePress(WalkKey.Space); // taken every tick so a press in Fly doesn't fire later
+        double forward = Axis(WalkKey.W, WalkKey.S) + Axis(WalkKey.Up, WalkKey.Down);
+        double strafe = Axis(WalkKey.D, WalkKey.A) + Axis(WalkKey.Right, WalkKey.Left);
         forward = Math.Clamp(forward, -1, 1);
         strafe = Math.Clamp(strafe, -1, 1);
         double speed = _speedM * (_input.Shift ? RunFactor : 1.0);
@@ -206,7 +205,7 @@ internal sealed class WalkSession
             // Forward follows the full look direction; strafe stays horizontal; no collision.
             var (lx, ly, lz) = WalkPhysics.LookDirection(_yaw, _pitch);
             var (sx, sy) = WalkPhysics.HorizontalMove(0, strafe, _yaw, 1);
-            var wish = new Vector3d(forward * lx + sx, forward * ly + sy, forward * lz + Axis(MacInput.KeyE, MacInput.KeyQ));
+            var wish = new Vector3d(forward * lx + sx, forward * ly + sy, forward * lz + Axis(WalkKey.E, WalkKey.Q));
             if (wish.Unitize()) wish *= speed;
             var (x, y, z) = WalkPhysics.Accelerate((_velocityM.X, _velocityM.Y, _velocityM.Z), (wish.X, wish.Y, wish.Z), FlyAccelM, FlyAccelM, dt);
             _velocityM = new Vector3d(x, y, z);
@@ -255,7 +254,7 @@ internal sealed class WalkSession
         return ground is null ? 0.0 : ground.GetBoundingBox(false).Min.Z;
     }
 
-    double Axis(ushort positive, ushort negative) =>
+    double Axis(WalkKey positive, WalkKey negative) =>
         (_input.IsDown(positive) ? 1 : 0) - (_input.IsDown(negative) ? 1 : 0);
 
     internal void Apply()

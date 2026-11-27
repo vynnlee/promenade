@@ -1,34 +1,39 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using AppKit;
 using Foundation;
 
 namespace Promenade;
 
-// Keyboard and mouse through an NSEvent local monitor (no Accessibility permission needed).
-// Swallows the keys we use. MouseLook (cursor locked + hidden): left click frees the cursor, right click teleports;
-// with Blocks on, left button held = break, right click = place instead. FreeCursor: left clicks go to Rhino,
-// right click returns to MouseLook.
-internal sealed class MacInput : IDisposable
+// IWalkInput through an NSEvent local monitor (no Accessibility permission needed).
+[SupportedOSPlatform("macos")]
+internal sealed class MacInput : IWalkInput
 {
-    // macOS virtual key codes. Move: WASD/arrows, turn Q/E, jump Space, fly Tab, exit Esc.
-    public const ushort KeyA = 0, KeyS = 1, KeyD = 2, KeyQ = 12, KeyW = 13, KeyE = 14,
+    // macOS virtual key codes (ANSI positions).
+    const ushort KeyA = 0, KeyS = 1, KeyD = 2, KeyQ = 12, KeyW = 13, KeyE = 14,
         KeySpace = 49, KeyTab = 48, KeyEscape = 53, KeyLeft = 123, KeyRight = 124, KeyDown = 125, KeyUp = 126;
-    // Feature keys. View: lens 1–5, lens zoom -/=, two-point T, display mode V, screenshot P.
-    // Body: eye height H, measure M (teleport is a right click in MouseLook). Scene: save view N,
-    // previous/next saved view , and ., sun time [ and ]. Frame: aspect F, composition guides G.
-    public const ushort Key1 = 18, Key2 = 19, Key3 = 20, Key4 = 21, Key5 = 23, KeyMinus = 27, KeyEqual = 24,
+    const ushort Key1 = 18, Key2 = 19, Key3 = 20, Key4 = 21, Key5 = 23, KeyMinus = 27, KeyEqual = 24,
         KeyT = 17, KeyV = 9, KeyP = 35, KeyH = 4, KeyM = 46, KeyN = 45, KeyComma = 43, KeyPeriod = 47,
-        KeyLeftBracket = 33, KeyRightBracket = 30, KeyF = 3, KeyG = 5;
-    // Block mode on/off (BlockMode).
-    public const ushort KeyB = 11;
-    // Debug HUD: F3 (needs "Use F1, F2, etc. keys as standard function keys", or fn) and ` (ANSI grave).
-    public const ushort KeyF3 = 99, KeyGrave = 50;
-    static readonly HashSet<ushort> HandledKeys =
-        [KeyA, KeyS, KeyD, KeySpace, KeyQ, KeyW, KeyE, KeyTab, KeyEscape, KeyLeft, KeyRight, KeyDown, KeyUp,
-         Key1, Key2, Key3, Key4, Key5, KeyMinus, KeyEqual, KeyT, KeyV, KeyP, KeyH, KeyM, KeyN,
-         KeyComma, KeyPeriod, KeyLeftBracket, KeyRightBracket, KeyF, KeyG, KeyF3, KeyGrave, KeyB];
+        KeyLeftBracket = 33, KeyRightBracket = 30, KeyF = 3, KeyG = 5, KeyB = 11;
+    // F3 needs "Use F1, F2, etc. keys as standard function keys", or fn; ` is the ANSI grave.
+    const ushort KeyF3 = 99, KeyGrave = 50;
+
+    static ushort Code(WalkKey key) => key switch
+    {
+        WalkKey.W => KeyW, WalkKey.A => KeyA, WalkKey.S => KeyS, WalkKey.D => KeyD, WalkKey.Q => KeyQ, WalkKey.E => KeyE,
+        WalkKey.Space => KeySpace, WalkKey.Tab => KeyTab, WalkKey.Escape => KeyEscape,
+        WalkKey.Left => KeyLeft, WalkKey.Right => KeyRight, WalkKey.Up => KeyUp, WalkKey.Down => KeyDown,
+        WalkKey.Digit1 => Key1, WalkKey.Digit2 => Key2, WalkKey.Digit3 => Key3, WalkKey.Digit4 => Key4, WalkKey.Digit5 => Key5,
+        WalkKey.Minus => KeyMinus, WalkKey.Equal => KeyEqual, WalkKey.T => KeyT, WalkKey.V => KeyV, WalkKey.P => KeyP,
+        WalkKey.H => KeyH, WalkKey.M => KeyM, WalkKey.N => KeyN, WalkKey.Comma => KeyComma, WalkKey.Period => KeyPeriod,
+        WalkKey.LeftBracket => KeyLeftBracket, WalkKey.RightBracket => KeyRightBracket,
+        WalkKey.F => KeyF, WalkKey.G => KeyG, WalkKey.B => KeyB, WalkKey.F3 => KeyF3, WalkKey.Grave => KeyGrave,
+        _ => throw new ArgumentOutOfRangeException(nameof(key)),
+    };
+    static readonly HashSet<ushort> HandledKeys = [.. Enum.GetValues<WalkKey>().Select(Code)];
 
     [DllImport("/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics")]
     static extern int CGAssociateMouseAndMouseCursorPosition(int connected);
@@ -43,9 +48,9 @@ internal sealed class MacInput : IDisposable
 
     public bool Shift { get; private set; }
     public bool MouseLook { get; private set; }
-    public bool LeftHeld { get; private set; } // Blocks + MouseLook: the left button is down (breaking)
+    public bool LeftHeld { get; private set; }
+    public bool AppActive => NSApplication.SharedApplication.Active;
 
-    // Block mode's click mapping in MouseLook (FreeCursor is the same either way).
     public bool Blocks
     {
         get => _blocks;
@@ -73,11 +78,10 @@ internal sealed class MacInput : IDisposable
         SetMouseLook(true);
     }
 
-    public bool IsDown(ushort keyCode) => _held.Contains(keyCode);
+    public bool IsDown(WalkKey key) => _held.Contains(Code(key));
 
-    public bool TakePress(ushort keyCode) => _pressed.Remove(keyCode);
+    public bool TakePress(WalkKey key) => _pressed.Remove(Code(key));
 
-    // A right click made in MouseLook (the cursor is hidden, so it means "there, at the crosshair").
     public bool TakeClick()
     {
         bool clicked = _clicked;
@@ -85,7 +89,6 @@ internal sealed class MacInput : IDisposable
         return clicked;
     }
 
-    // A right click made in MouseLook with Blocks on: place a block at the crosshair.
     public bool TakePlace()
     {
         bool placed = _placed;
@@ -100,7 +103,7 @@ internal sealed class MacInput : IDisposable
         return delta;
     }
 
-    // Whole scroll notches since the last call (+ = wheel up). Trackpad fractions accumulate.
+    // Trackpad fractions accumulate.
     public int TakeScrollNotches()
     {
         int notches = (int)_scroll;
@@ -191,6 +194,16 @@ internal sealed class MacInput : IDisposable
             default:
                 return e;
         }
+    }
+
+    internal static Action WatchEscape(Action onEscape)
+    {
+        var monitor = NSEvent.AddLocalMonitorForEventsMatchingMask(NSEventMask.KeyDown, e =>
+        {
+            if (e.KeyCode == KeyEscape) onEscape();
+            return e; // Rhino may abort the move in progress too
+        });
+        return () => NSEvent.RemoveMonitor(monitor);
     }
 
     public void Dispose()

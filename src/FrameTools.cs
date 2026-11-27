@@ -24,7 +24,7 @@ internal static class FrameTools
     // Called every walk tick before the walker moves; takes only this file's keys.
     internal static void OnTick(WalkSession s)
     {
-        if (!s.Input.TakePress(MacInput.KeyF)) return;
+        if (!s.Input.TakePress(WalkKey.F)) return;
         int i = Index(s.Doc); // Off → 16:9 → … → 2.39:1 → Off; an unknown aspect counts as off
         Set(s.Doc, s.View, i + 1 < FrameMath.Aspects.Length ? i + 1 : -1);
     }

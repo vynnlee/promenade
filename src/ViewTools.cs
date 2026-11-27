@@ -15,7 +15,7 @@ namespace Promenade;
 internal static class ViewTools
 {
     internal static readonly double[] Lenses = [14, 18, 24, 35, 50]; // 35 mm equivalent
-    static readonly ushort[] LensKeys = [MacInput.Key1, MacInput.Key2, MacInput.Key3, MacInput.Key4, MacInput.Key5];
+    static readonly WalkKey[] LensKeys = [WalkKey.Digit1, WalkKey.Digit2, WalkKey.Digit3, WalkKey.Digit4, WalkKey.Digit5];
     const double ZoomStep = 1.1, MinLens = 10, MaxLens = 200;
     // Two-point looks up/down by shifting the frame; past this the picture is mostly stretch.
     internal const double MaxTwoPointPitch = 60.0 * Math.PI / 180.0;
@@ -38,11 +38,11 @@ internal static class ViewTools
         var vp = view.ActiveViewport;
         for (int i = 0; i < LensKeys.Length; i++)
             if (s.Input.TakePress(LensKeys[i])) SetLens(view, Lenses[i]);
-        if (s.Input.TakePress(MacInput.KeyMinus)) SetLens(view, Lens(vp) / ZoomStep);
-        if (s.Input.TakePress(MacInput.KeyEqual)) SetLens(view, Lens(vp) * ZoomStep);
-        if (s.Input.TakePress(MacInput.KeyT)) { ToggleTwoPoint(view); s.Apply(); }
-        if (s.Input.TakePress(MacInput.KeyV)) CycleDisplayMode(view);
-        if (s.Input.TakePress(MacInput.KeyP)) Screenshot(s.Doc, view);
+        if (s.Input.TakePress(WalkKey.Minus)) SetLens(view, Lens(vp) / ZoomStep);
+        if (s.Input.TakePress(WalkKey.Equal)) SetLens(view, Lens(vp) * ZoomStep);
+        if (s.Input.TakePress(WalkKey.T)) { ToggleTwoPoint(view); s.Apply(); }
+        if (s.Input.TakePress(WalkKey.V)) CycleDisplayMode(view);
+        if (s.Input.TakePress(WalkKey.P)) Screenshot(s.Doc, view);
     }
 
     // Rhino's 35 mm lens reads a vertically shifted (two-point) frustum as wider, so lens math runs on a
@@ -130,8 +130,8 @@ internal static class ViewTools
     {
         try
         {
-            string folder = string.IsNullOrEmpty(doc.Path)
-                ? Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile), "Pictures", "Promenade")
+            string folder = string.IsNullOrEmpty(doc.Path) // unsaved: ~/Pictures/Promenade, or Pictures\Promenade on Windows
+                ? Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures), "Promenade")
                 : Path.Combine(Path.GetDirectoryName(doc.Path)!, Path.GetFileNameWithoutExtension(doc.Path) + " - Walk shots");
             // Viewport.Size is already in backing (Retina) pixels, so this is full screen resolution.
             var size = view.ActiveViewport.Size;

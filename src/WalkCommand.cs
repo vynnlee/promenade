@@ -4,14 +4,13 @@ using System.Runtime.Versioning;
 using Rhino;
 using Rhino.Commands;
 using Rhino.PlugIns;
-using Rhino.Runtime;
 
 [assembly: Guid("EA7BAEA5-2D20-4842-A9C5-1B12A6CF4E3A")]
 [assembly: PlugInDescription(DescriptionType.Organization, "Seongbeen Lee")]
 [assembly: PlugInDescription(DescriptionType.WebSite, "https://github.com/vynnlee/promenade")]
 [assembly: PlugInDescription(DescriptionType.Country, "South Korea")]
 [assembly: PlugInDescription(DescriptionType.Icon, "Promenade.EmbeddedResources.plugin.ico")]
-[assembly: SupportedOSPlatform("macos")]
+[assembly: SupportedOSPlatform("macos"), SupportedOSPlatform("windows")]
 
 namespace Promenade;
 
@@ -30,12 +29,6 @@ public sealed class WalkCommand : Command
 
     protected override Result RunCommand(RhinoDoc doc, RunMode mode)
     {
-        if (!HostUtils.RunningOnOSX)
-        {
-            RhinoApp.WriteLine("Promenade: this build is macOS-only.");
-            return Result.Failure;
-        }
-
         // Running Walk again exits (and restores the cursor) instead of starting a second session.
         if (WalkSession.Current is { } running)
         {

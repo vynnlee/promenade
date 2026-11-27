@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using AppKit;
 using Rhino;
 using Rhino.Commands;
 using Rhino.Display;
@@ -23,10 +22,10 @@ internal static class SceneTools
     // Called every walk tick before the walker moves; take only this file's keys.
     internal static void OnTick(WalkSession s)
     {
-        if (s.Input.TakePress(MacInput.KeyN)) SaveView(s.Doc, s.View);
-        int step = (s.Input.TakePress(MacInput.KeyPeriod) ? 1 : 0) - (s.Input.TakePress(MacInput.KeyComma) ? 1 : 0);
+        if (s.Input.TakePress(WalkKey.N)) SaveView(s.Doc, s.View);
+        int step = (s.Input.TakePress(WalkKey.Period) ? 1 : 0) - (s.Input.TakePress(WalkKey.Comma) ? 1 : 0);
         if (step != 0) GoTo(s, step);
-        int sun = (s.Input.TakePress(MacInput.KeyRightBracket) ? 1 : 0) - (s.Input.TakePress(MacInput.KeyLeftBracket) ? 1 : 0);
+        int sun = (s.Input.TakePress(WalkKey.RightBracket) ? 1 : 0) - (s.Input.TakePress(WalkKey.LeftBracket) ? 1 : 0);
         if (sun != 0) SetSun(s.Doc, s.View, t => t + sun * (s.Input.Shift ? 0.25 : 1.0));
     }
 
@@ -108,11 +107,7 @@ internal static class SceneTools
         if (view is null) return Result.Failure;
 
         bool cancel = false;
-        var monitor = NSEvent.AddLocalMonitorForEventsMatchingMask(NSEventMask.KeyDown, e =>
-        {
-            if (e.KeyCode == MacInput.KeyEscape) cancel = true;
-            return e; // Rhino may abort the move in progress too
-        });
+        var stopWatching = IWalkInput.WatchEscape(() => cancel = true);
         try
         {
             RhinoApp.WriteLine($"WalkTour: {views.Count} views, Esc to stop.");
@@ -132,7 +127,7 @@ internal static class SceneTools
         }
         finally
         {
-            NSEvent.RemoveMonitor(monitor);
+            stopWatching();
         }
     }
 }
