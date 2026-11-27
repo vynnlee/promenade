@@ -100,6 +100,9 @@ scripts/install.sh                     # dist/promenade-*-mac.yak과 -win.yak을
 | [ / ] | 태양 시각 −/+ 1시간 (Shift: 15분) |
 | fn+F3 또는 ` | 디버그 정보 켜기/끄기 (기본: 꺼짐) |
 | B | 블록 모드 켜기/끄기 (기본: 꺼짐, 아래 참고) |
+| X | 단면: 끔, 앞 벽 걷어 내기, 머리 위 잘라 내기 |
+| Page Up / Page Down | 위층 / 아래층 바닥으로 이동 |
+| R | 걷기 기록 시작 / 끝 |
 
 - 둘러보기 모드에서는 화면 한가운데에 흰 십자선(+)이 보입니다. 오른쪽 클릭 순간 이동과 M 측정이 겨누는 곳이고,
   2점 투시에서 화면이 위아래로 이동해도 그대로 시선 방향을 가리킵니다. `WalkCrosshair`로 끕니다.
@@ -111,7 +114,10 @@ scripts/install.sh                     # dist/promenade-*-mac.yak과 -win.yak을
 - 현재 상태는 명령 프롬프트에 표시됩니다. 예: `Walk | 2.5 m/s | Tab: fly, Space: jump, RMB: teleport, LMB: cursor, Esc: exit`
 - 땅에서는 키를 누르면 즉시 그 속도로 움직이고 떼면 즉시 멈춥니다. 점프하거나 떨어지는 동안에는 땅을 떠날 때의
   속도를 그대로 유지합니다(공중 조작 없음). 날기 모드만 부드럽게 가속하고, 충돌 없이 벽을 통과합니다.
-- 렌즈, 2점 투시, 눈높이, 십자선·디버그·구도 가이드 표시 설정은 다음 `Walk`에도 유지됩니다.
+- 렌즈, 2점 투시, 눈높이, 십자선·디버그·구도 가이드 표시, 단면 설정은 다음 `Walk`에도 유지됩니다.
+- 키는 `keymap.json`에서 바꿀 수 있습니다(`WalkKeys` 실행). Esc는 항상 종료입니다. Windows에서 AZERTY나 QWERTZ 자판을 쓰면
+  `"layout"`을 `"azerty"` 또는 `"qwertz"`로 두세요. Mac은 자판과 상관없이 같은 위치의 키를 씁니다.
+- 단면은 보이는 것만 바꿉니다. 벽에는 그대로 막힙니다.
 
 ## 명령과 툴바
 
@@ -134,6 +140,10 @@ Promenade 툴바의 버튼 12개는 모두 아래 명령을 실행합니다(`Wal
 | `WalkDebug` | 디버그 정보 켜기/끄기 (기본: 꺼짐) |
 | `WalkCrosshair` | 십자선 켜기/끄기 (기본: 켜짐) |
 | `WalkBlocks` | 블록 모드 켜기/끄기 (걷는 중이 아니면 설정만 바꾸고 다음 걷기부터) |
+| `WalkClip` | 단면: Off / SeeThrough / Cutaway |
+| `WalkPlay` | 기록한 걷기를 현재 뷰에서 재생 (기본은 가장 최근 기록, Esc로 멈춤) |
+| `WalkRender` | 기록한 걷기를 30 fps 프레임으로 렌더링 (`FramesPerSecond`, `LongSide`). Mac에서는 .mp4도 만듦 |
+| `WalkKeys` | 키를 바꾸거나 마우스를 반전하는 `keymap.json`을 만들고 엶 |
 
 - 저장한 뷰는 Rhino의 Named Views 패널에 그대로 나타나므로 이름을 바꾸거나 지울 수 있습니다.
 - 태양: 문서의 Sun 시각을 바꿉니다. 날짜와 위치는 그대로입니다. 태양이 꺼져 있으면 켜고, 수동 위치 지정은 해제합니다.

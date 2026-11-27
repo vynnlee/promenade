@@ -6,7 +6,7 @@
     <AssemblyName>Promenade</AssemblyName>
     <RootNamespace>Promenade</RootNamespace>
     <Title>Promenade</Title>
-    <Version>0.4.0</Version>
+    <Version>0.5.0</Version>
     <!-- Yak reads the informational version; keep it equal to manifest.yml (no "+<commit>" suffix). -->
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Company>Seongbeen Lee</Company>

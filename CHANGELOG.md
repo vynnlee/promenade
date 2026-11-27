@@ -4,6 +4,17 @@ All notable changes to Promenade are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-11-27
+
+### Added
+
+- Record a walk with R. `WalkPlay` plays it back smoothly, and `WalkRender` renders it to frames at any frame
+  rate; on a Mac it also encodes an .mp4 (H.264). Recordings are saved in the document.
+- Clipping while walking (X or `WalkClip`): see-through removes the wall in front of you, cutaway removes
+  everything above head height. It only changes what you see.
+- Page Up and Page Down jump to the floor above or below.
+- `keymap.json` (`WalkKeys`) to change keys, choose an AZERTY or QWERTZ layout on Windows, and invert the mouse.
+
 ## [0.4.0] - 2026-11-27
 
 ### Changed
@@ -43,5 +54,6 @@ First public release. Earlier internal builds (up to 0.2.0) were named RhinoWalk
 - "Promenade" toolbar with 12 buttons, loaded automatically with the plug-in.
 - Block mode easter egg (B, `WalkBlocks`): place and break 1 m stone blocks on the `Promenade Blocks` layer.
 
+[0.5.0]: https://github.com/vynnlee/promenade/releases/tag/v0.5.0
 [0.4.0]: https://github.com/vynnlee/promenade/releases/tag/v0.4.0
 [0.3.0]: https://github.com/vynnlee/promenade/releases/tag/v0.3.0

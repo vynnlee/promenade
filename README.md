@@ -103,6 +103,9 @@ While walking:
 | [ / ] | Sun time −/+ 1 hour (with Shift: 15 minutes) |
 | ` or fn+F3 | Debug HUD on/off |
 | B | Block mode on/off |
+| X | Clipping: off, see-through (the wall in front disappears), cutaway (everything above head height disappears) |
+| Page Up / Page Down | Jump to the floor above / below |
+| R | Start / stop recording the walk |
 | Esc | Exit |
 
 Notes:
@@ -111,7 +114,10 @@ Notes:
 - When a toolbar command asks for a number or option, input goes to Rhino until it finishes.
 - On the ground, movement starts and stops instantly. In the air you keep the speed you had at take-off.
   Fly mode accelerates smoothly and has no collision.
-- Lens, two-point, eye height, crosshair, HUD and guide settings carry over to the next `Walk`.
+- Lens, two-point, eye height, crosshair, HUD, guide and clipping settings carry over to the next `Walk`.
+- Keys can be changed in `keymap.json` (run `WalkKeys`). Esc always exits. On Windows, set `"layout": "azerty"` or
+  `"qwertz"` so the movement keys stay where WASD is on a US keyboard; on a Mac they already do.
+- Clipping only changes what you see: walls still stop you.
 - F3 is Mission Control in the default macOS settings, so use fn+F3 or the backtick key.
 
 ## Commands
@@ -132,6 +138,10 @@ Notes:
 | `WalkDebug` | Debug HUD on/off (default off) |
 | `WalkCrosshair` | Crosshair on/off (default on) |
 | `WalkBlocks` | Block mode on/off |
+| `WalkClip` | Clipping: Off / SeeThrough / Cutaway |
+| `WalkPlay` | Play a recorded walk in the active view (newest by default; Esc stops) |
+| `WalkRender` | Render a recorded walk to frames at 30 fps (`FramesPerSecond`, `LongSide`); on a Mac also an .mp4 |
+| `WalkKeys` | Create and open `keymap.json` to change keys or invert the mouse |
 
 Screenshots go to `<document folder>/<document name> - Walk shots/`, or `~/Pictures/Promenade/` for an unsaved
 document. With a frame on, only the framed area is rendered at render size; otherwise the whole viewport at
