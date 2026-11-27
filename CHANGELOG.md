@@ -4,6 +4,12 @@ All notable changes to Promenade are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2026-11-28
+
+### Changed
+
+- The package and plug-in icons use the plain logo instead of the rounded badge.
+
 ## [0.5.0] - 2026-11-27
 
 ### Added
@@ -54,6 +60,7 @@ First public release. Earlier internal builds (up to 0.2.0) were named RhinoWalk
 - "Promenade" toolbar with 12 buttons, loaded automatically with the plug-in.
 - Block mode easter egg (B, `WalkBlocks`): place and break 1 m stone blocks on the `Promenade Blocks` layer.
 
+[0.5.1]: https://github.com/vynnlee/promenade/releases/tag/v0.5.1
 [0.5.0]: https://github.com/vynnlee/promenade/releases/tag/v0.5.0
 [0.4.0]: https://github.com/vynnlee/promenade/releases/tag/v0.4.0
 [0.3.0]: https://github.com/vynnlee/promenade/releases/tag/v0.3.0
