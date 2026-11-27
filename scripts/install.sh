@@ -33,17 +33,14 @@ python3 "$root/scripts/make-rui.py"   # ui/Promenade.rui from ui/icons/*.svg
 stage="$root/dist/stage"
 rm -rf "$stage"
 mkdir -p "$stage"
-out="$root/bin/Release/net10.0"
+out="$root/bin/Release/net8.0"
 cp "$out/Promenade.rhp" "$out/JoltPhysicsSharp.dll" "$out/libjoltc.dylib" "$root/manifest.yml" \
    "$root/THIRD-PARTY-NOTICES.md" "$root/ui/icon.png" "$stage/"
 cp "$root/ui/Promenade.rui" "$stage/Promenade.rui"   # same name as the .rhp so Rhino loads the toolbar with it
-# Rhino 9 for Mac is arm64-only: drop the unused x86_64 slice (~2 MB). Each slice carries its own
-# signature, so the arm64 slice stays validly signed.
-dylib="$stage/libjoltc.dylib"
-if lipo -archs "$dylib" | grep -q x86_64; then
-    lipo -thin arm64 "$dylib" -output "$dylib.arm64" && mv "$dylib.arm64" "$dylib"
-fi
-codesign --verify "$dylib"
+# The dylib stays universal: Rhino 8 for Mac also runs on Intel. JoltPhysics.Native 1.0.4 ships it unsigned,
+# and Apple Silicon refuses to load unsigned code, so sign it ad hoc (as later Jolt builds are).
+codesign --force --sign - "$stage/libjoltc.dylib"
+codesign --verify "$stage/libjoltc.dylib"
 (cd "$stage" && "$yak" build --platform mac)
 
 package=$(ls "$stage"/*.yak)
@@ -66,4 +63,4 @@ for old in promenade rhinowalk; do
 done
 "$yak" install "$package"
 echo "Installed into: $("$yak" --debug list 2>&1 | sed -n 's/^Package directory: //p')"
-echo "Start Rhino 9 and run: Walk"
+echo "Start Rhino and run: Walk"

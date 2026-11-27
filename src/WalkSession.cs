@@ -93,7 +93,8 @@ internal sealed class WalkSession
             _world = CreateWorld(ground, GroundPlaneZ(doc, ground) / _unit);
         WorldBuildSeconds = build.Elapsed.TotalSeconds;
 
-        _input = IWalkInput.Create(view);
+        try { _input = IWalkInput.Create(view); }
+        catch { _world.Dispose(); throw; }
         _timer = new Eto.Forms.UITimer { Interval = 1.0 / 120.0 };
         _timer.Elapsed += (_, _) => Tick();
     }
@@ -102,12 +103,20 @@ internal sealed class WalkSession
     {
         var session = new WalkSession(doc, view);
         Current = session;
-        RhinoDoc.CloseDocument += session.OnCloseDocument;
-        RhinoView.Destroy += session.OnViewDestroy;
-        ViewTools.OnStart(session);
-        session.Apply();
-        session.ShowStatus();
-        session._timer.Start();
+        try
+        {
+            RhinoDoc.CloseDocument += session.OnCloseDocument;
+            RhinoView.Destroy += session.OnViewDestroy;
+            ViewTools.OnStart(session);
+            session.Apply();
+            session.ShowStatus();
+            session._timer.Start();
+        }
+        catch
+        {
+            session.Stop(); // gives the cursor and the input hooks back
+            throw;
+        }
     }
 
     // What the Walk* commands act on in doc: the walk's view if this doc is walking, else its active view.

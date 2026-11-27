@@ -40,10 +40,10 @@ internal sealed class JoltWorld : IDisposable
     // event instead: it runs only when every other lookup failed (it is asked for e.g. "libjoltc.dylib").
     static JoltWorld()
     {
-        string dir = Path.GetDirectoryName(typeof(JoltWorld).Assembly.Location) ?? "";
+        string path = Path.Combine(Path.GetDirectoryName(typeof(JoltWorld).Assembly.Location) ?? "",
+            OperatingSystem.IsWindows() ? "joltc.dll" : "libjoltc.dylib");
         AssemblyLoadContext.GetLoadContext(typeof(JoltPhysicsSharp.Foundation).Assembly)!.ResolvingUnmanagedDll += (_, name) =>
-            name.Contains("joltc", StringComparison.Ordinal) &&
-            NativeLibrary.TryLoad(Path.Combine(dir, "libjoltc.dylib"), out nint handle) ? handle : 0;
+            name.Contains("joltc", StringComparison.Ordinal) && NativeLibrary.TryLoad(path, out nint handle) ? handle : 0;
     }
 
     // xyz: vertex coordinates (x, y, z, x, y, z, ...); triangles: vertex index triples; all in meters.

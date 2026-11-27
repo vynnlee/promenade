@@ -4,6 +4,19 @@ All notable changes to Promenade are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-11-27
+
+### Changed
+
+- Runs on Rhino 8 (8.21 or later) as well as Rhino 9: built for .NET 8 against RhinoCommon 8.21,
+  with JoltPhysicsSharp 2.19.1. Intel Macs are supported again (the Jolt library ships universal).
+- The debug HUD uses the text call Rhino 8 has, so its right column is now left-aligned.
+
+### Added
+
+- Windows input (keyboard and mouse hooks, cursor lock) behind a shared input interface. Untested
+  on Windows, so no Windows package ships yet.
+
 ## [0.3.0] - 2026-11-27
 
 First public release. Earlier internal builds (up to 0.2.0) were named RhinoWalk.
@@ -30,4 +43,5 @@ First public release. Earlier internal builds (up to 0.2.0) were named RhinoWalk
 - "Promenade" toolbar with 12 buttons, loaded automatically with the plug-in.
 - Block mode easter egg (B, `WalkBlocks`): place and break 1 m stone blocks on the `Promenade Blocks` layer.
 
+[0.4.0]: https://github.com/vynnlee/promenade/releases/tag/v0.4.0
 [0.3.0]: https://github.com/vynnlee/promenade/releases/tag/v0.3.0

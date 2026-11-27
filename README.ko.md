@@ -4,7 +4,7 @@
 
 # Promenade
 
-Promenade — macOS용 Rhinoceros® 9에서 쓰는 1인칭 걷기 탐색 플러그인입니다(Apple Silicon).
+Promenade — macOS용 Rhinoceros® 8과 9에서 쓰는 1인칭 걷기 탐색 플러그인입니다.
 건축·실내·공간 디자이너가 사람 눈높이에서 공간을 걸어 보고, 구도를 잡고, 이미지와 뷰로 남기는 흐름에 맞췄습니다.
 조작 방식은 게임식 1인칭 이동에서 착안했습니다. 무료 오픈 소스(MIT)입니다.
 
@@ -16,9 +16,9 @@ Rhino를 종료한 뒤 설치합니다.
 
 - **Package Manager**(공개 후): Rhino에서 `PackageManager`를 실행하고 "Promenade"를 검색해 설치합니다.
 - **릴리스 `.yak` 파일**: [Releases](https://github.com/vynnlee/promenade/releases)에서
-  `promenade-0.3.0-rh9_0-mac.yak`을 받아 설치합니다.
+  `promenade-0.4.0-rh8_21-mac.yak`을 받아 설치합니다.
   ```sh
-  "/Applications/Rhino 9.app/Contents/Resources/bin/yak" install promenade-0.3.0-rh9_0-mac.yak
+  "/Applications/Rhino 9.app/Contents/Resources/bin/yak" install promenade-0.4.0-rh8_21-mac.yak
   ```
 - **직접 설치**: `.yak`은 zip 파일입니다. 폴더에 풀고 `Promenade.rhp`를 Rhino 창으로 끌어다 놓습니다.
   `JoltPhysicsSharp.dll`, `libjoltc.dylib`, `Promenade.rui`는 같은 폴더에 둡니다.
@@ -28,10 +28,10 @@ Yak으로 설치하면 `~/Library/Application Support/McNeel/Rhinoceros/packages
 
 ## 빌드
 
-.NET 10 SDK와 `/Applications/Rhino 9.app`의 Rhino 9이 필요합니다.
+.NET SDK(8 이상)와 `/Applications/Rhino 9.app`의 Rhino 9이 필요합니다.
 
 ```sh
-scripts/build.sh                       # → bin/Release/net10.0/Promenade.rhp
+scripts/build.sh                       # → bin/Release/net8.0/Promenade.rhp
 dotnet run --project tests             # 계산 로직 자가 점검 (Rhino 없이 실행)
 python3 scripts/make-rui.py            # ui/icons/*.svg → ui/Promenade.rui (툴바)
 scripts/install.sh --dry-run           # 빌드와 Yak 패키징만 하고 설치하지 않음
@@ -183,7 +183,7 @@ Promenade 툴바의 버튼 12개는 모두 아래 명령을 실행합니다(`Wal
   걷기로 바꾸면 바닥 위로 밀려 올라옵니다.
 - macOS용 Jolt는 단정밀도(float)입니다. 모델 중심을 원점으로 옮겨 계산하므로 보통 모델은 문제없지만, 중심에서
   수 km 이상 떨어지면 정밀도가 떨어집니다. 바닥 평면은 모델 중심에서 100 km까지만 있습니다.
-- macOS(Apple Silicon) 전용입니다.
+- 지금은 macOS 전용입니다. Windows 입력 코드는 있지만 아직 테스트하지 않아 Windows 패키지는 없습니다.
 
 ## 라이선스
 

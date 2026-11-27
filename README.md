@@ -11,7 +11,7 @@ Made for architects, interior and spatial designers.
 
 ![Promenade walking through a model](docs/images/hero.jpg)
 
-Free and open source (MIT). Apple Silicon only.
+Free and open source (MIT). Rhino 8 and 9 on macOS.
 
 ## Features
 
@@ -50,19 +50,18 @@ Free and open source (MIT). Apple Silicon only.
 
 ## Requirements
 
-- Rhinoceros 9 for Mac (Promenade runs on Rhino 9's .NET 10 runtime)
-- Apple Silicon Mac
-- A macOS version supported by Rhino 9
+- Rhinoceros 8 for Mac (8.21 or later, on its default .NET 8 runtime) or Rhinoceros 9 for Mac
+- Apple Silicon or Intel Mac
 
 ## Install
 
 Quit Rhino first.
 
 - **Package Manager** (once published): in Rhino, run `PackageManager`, search for "Promenade", install.
-- **From a release `.yak`**: download `promenade-0.3.0-rh9_0-mac.yak` from
+- **From a release `.yak`**: download `promenade-0.4.0-rh8_21-mac.yak` from
   [Releases](https://github.com/vynnlee/promenade/releases), then:
   ```sh
-  "/Applications/Rhino 9.app/Contents/Resources/bin/yak" install promenade-0.3.0-rh9_0-mac.yak
+  "/Applications/Rhino 9.app/Contents/Resources/bin/yak" install promenade-0.4.0-rh8_21-mac.yak
   ```
 - **Manual**: a `.yak` is a zip archive. Unzip it into a folder and drag `Promenade.rhp` onto the Rhino window.
   Keep `JoltPhysicsSharp.dll`, `libjoltc.dylib` and `Promenade.rui` next to it.
@@ -165,14 +164,14 @@ Walk-mode collision uses [Jolt Physics](https://github.com/jrouwe/JoltPhysics) `
   but switching to walk pushes you back up.
 - Jolt on macOS is single precision. Coordinates are recentred on the model, but precision drops several km
   from its centre. The ground plane extends 100 km from the model centre.
-- macOS and Apple Silicon only.
+- macOS only for now. Windows input is written but untested, so there is no Windows package yet.
 
 ## Building from source
 
-Requires the .NET 10 SDK and Rhino 9 installed in `/Applications/Rhino 9.app`.
+Requires the .NET SDK (8 or later) and Rhino 9 installed in `/Applications/Rhino 9.app`.
 
 ```sh
-scripts/build.sh                 # build Promenade.rhp into bin/Release/net10.0/
+scripts/build.sh                 # build Promenade.rhp into bin/Release/net8.0/
 dotnet run --project tests       # self-check of the math, runs without Rhino
 python3 scripts/make-rui.py      # ui/icons/*.svg → ui/Promenade.rui (toolbar)
 scripts/install.sh --dry-run     # build and package dist/*.yak only

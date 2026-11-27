@@ -1,22 +1,21 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <!-- Rhino 9 for Mac runs plug-ins on .NET 10. -->
-    <TargetFramework>net10.0</TargetFramework>
+    <!-- net8.0 loads in both Rhino 8 (8.20+ runs plug-ins on .NET 8) and Rhino 9 (.NET 10). -->
+    <TargetFramework>net8.0</TargetFramework>
     <TargetExt>.rhp</TargetExt>
     <AssemblyName>Promenade</AssemblyName>
     <RootNamespace>Promenade</RootNamespace>
     <Title>Promenade</Title>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
     <!-- Yak reads the informational version; keep it equal to manifest.yml (no "+<commit>" suffix). -->
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Company>Seongbeen Lee</Company>
     <Authors>Seongbeen Lee</Authors>
     <Copyright>Copyright © 2026 Seongbeen Lee</Copyright>
-    <Description>First-person architectural walkthrough for Rhino 9 on macOS.</Description>
+    <Description>First-person architectural walkthrough for Rhino 8 and 9 on macOS.</Description>
     <Nullable>enable</Nullable>
     <EnableDynamicLoading>true</EnableDynamicLoading>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <RhinoResources>/Applications/Rhino 9.app/Contents/Frameworks/RhCore.framework/Versions/A/Resources</RhinoResources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,19 +25,28 @@
 
   <ItemGroup>
     <!-- Rhino supplies these at runtime, so they are compiled against but not copied. -->
-    <PackageReference Include="RhinoCommon" Version="9.0.26300.9401" PrivateAssets="all" ExcludeAssets="runtime" />
+    <!-- The oldest RhinoCommon on NuGet at or above 8.20 (8.20 itself shipped only as RCs): Rhino refuses
+         plug-ins built against a newer RhinoCommon than its own. -->
+    <PackageReference Include="RhinoCommon" Version="8.21.25188.17001" PrivateAssets="all" ExcludeAssets="runtime" />
+    <!-- The net8.0 macOS reference assembly (macOS 14.0 SDK, the oldest for .NET 8). It is a DotnetPlatform
+         package, which PackageReference refuses, so it is only downloaded and referenced by path;
+         at run time the Microsoft.macOS.dll that Rhino ships is used. -->
+    <PackageDownload Include="Microsoft.macOS.Ref" Version="[14.0.8478]" />
     <Reference Include="Microsoft.macOS">
-      <HintPath>$(RhinoResources)/Microsoft.macOS.dll</HintPath>
+      <HintPath>$(NuGetPackageRoot)microsoft.macos.ref/14.0.8478/ref/net8.0/Microsoft.macOS.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Shipped by us: JoltPhysicsSharp.dll plus only the macOS libjoltc.dylib (universal, single precision),
-         flat next to the .rhp instead of under runtimes/<rid>/native for every platform. -->
-    <PackageReference Include="JoltPhysicsSharp" Version="2.26.0" />
-    <PackageReference Include="JoltPhysics.Native" Version="1.3.0" ExcludeAssets="native" GeneratePathProperty="true" />
+    <!-- Shipped by us: JoltPhysicsSharp.dll plus the single-precision natives, flat next to the .rhp instead of
+         under runtimes/<rid>/native for every platform: libjoltc.dylib (universal) for macOS and joltc.dll
+         (x64) for a future Windows package. 2.19.1 is the last JoltPhysicsSharp with a net8.0 build. -->
+    <PackageReference Include="JoltPhysicsSharp" Version="2.19.1" />
+    <PackageReference Include="JoltPhysics.Native" Version="1.0.4" ExcludeAssets="native" GeneratePathProperty="true" />
     <None Include="$(PkgJoltPhysics_Native)/runtimes/osx/native/libjoltc.dylib" Link="libjoltc.dylib"
+          CopyToOutputDirectory="PreserveNewest" Visible="false" />
+    <None Include="$(PkgJoltPhysics_Native)/runtimes/win-x64/native/joltc.dll" Link="joltc.dll"
           CopyToOutputDirectory="PreserveNewest" Visible="false" />
   </ItemGroup>
 </Project>

@@ -36,6 +36,7 @@ internal static class Overlay
     static double _sessionStart, _windowStart, _lastTick, _targetAt, _builtAt = -1, _lastDraw, _hz, _dtMs;
     static int _windowTicks;
     static string _target = "", _left = "", _right = "";
+    static Rectangle _leftBox, _rightBox;
     static readonly Version? PlugInVersion = typeof(Overlay).Assembly.GetName().Version;
 
     // Frame dimming and thirds, rebuilt only when the viewport size or the frame changes.
@@ -131,10 +132,16 @@ internal static class Overlay
         if (!_hudOn) return;
         _lastDraw = Clock.Elapsed.TotalSeconds;
         // Text is rebuilt 10×/s; between rebuilds the same strings are drawn again.
-        if (_lastDraw - _builtAt >= 0.1) { _builtAt = _lastDraw; BuildHud(s, vp); }
         _font ??= SystemFont();
-        Text(e.Display, _left, Margin * _scale, TextHorizontalAlignment.Left);
-        Text(e.Display, _right, size.Width - Margin * _scale, TextHorizontalAlignment.Right);
+        if (_lastDraw - _builtAt >= 0.1)
+        {
+            _builtAt = _lastDraw;
+            BuildHud(s, vp);
+            _leftBox = e.Display.Measure2dText(_left, Point2d.Origin, false, 0, TextHeight, _font);
+            _rightBox = e.Display.Measure2dText(_right, Point2d.Origin, false, 0, TextHeight, _font);
+        }
+        Text(e.Display, _left, _leftBox, Margin * _scale);
+        Text(e.Display, _right, _rightBox, size.Width - Margin * _scale - _rightBox.Width);
     }
 
     static void BuildHud(WalkSession s, RhinoViewport vp)
@@ -216,13 +223,16 @@ internal static class Overlay
         display.Draw2dLine(new PointF(cx + d, cy - arm + d), new PointF(cx + d, cy + arm + d), color, width);
     }
 
-    // One multi-line text draw per column (+ its shadow); line spacing comes from the font.
-    static void Text(DisplayPipeline display, string text, float x, TextHorizontalAlignment align)
+    // One multi-line text draw per column (+ its shadow); line spacing comes from the font. Rhino 8 has only
+    // the int-height, left-anchored overload, so box (the text measured at the origin) puts its top-left at (x, Top).
+    static void Text(DisplayPipeline display, string text, Rectangle box, float x)
     {
-        float y = Top * _scale;
-        display.Draw2dText(text, Shadow, new Point2d(x + _scale, y + _scale), align, TextVerticalAlignment.Top, Height * _scale, _font, false, false, false, false, true);
-        display.Draw2dText(text, White, new Point2d(x, y), align, TextVerticalAlignment.Top, Height * _scale, _font, false, false, false, false, true);
+        var at = new Point2d(x - box.Left, Top * _scale - box.Top);
+        display.Draw2dText(text, Shadow, at + new Vector2d(_scale, _scale), false, TextHeight, _font);
+        display.Draw2dText(text, White, at, false, TextHeight, _font);
     }
+
+    static int TextHeight => (int)Math.Round(Height * _scale);
 
     // Rhino resolves face names against the installed families, which never list the hidden system UI
     // font (.AppleSystemUIFont); SF Pro is only there if Apple's font package is installed.
