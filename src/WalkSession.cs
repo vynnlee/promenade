@@ -293,7 +293,7 @@ internal sealed class WalkSession
 
     void ShowStatus()
     {
-        string status = string.Format(CultureInfo.InvariantCulture,
+        string status = ClipTools.StatusPrefix + string.Format(CultureInfo.InvariantCulture,
             "{0} | {1:0.0#} m/s | Tab: {2}, {3}{4}, Esc: exit",
             _fly ? "Fly" : "Walk", _speedM, _fly ? "walk" : "fly", _fly ? "" : "Space: jump, ",
             !_input.MouseLook ? "RMB: look" : _input.Blocks ? "RMB: place, LMB: break, B: blocks off" : "RMB: teleport, LMB: cursor");
