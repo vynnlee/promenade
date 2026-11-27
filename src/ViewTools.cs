@@ -62,7 +62,8 @@ internal static class ViewTools
         return info.Camera35mmLensLength;
     }
 
-    internal static void SetLens(RhinoView view, double lens)
+    // quiet: no redraw or toast (WalkPlay/WalkRender set the lens every frame).
+    internal static void SetLens(RhinoView view, double lens, bool quiet = false)
     {
         var vp = view.ActiveViewport;
         lens = Math.Clamp(lens, MinLens, MaxLens);
@@ -73,6 +74,7 @@ internal static class ViewTools
             if (twoPoint || rise != 0) ShiftFrustum(info, rise);
             vp.SetViewProjection(info, false);
         }
+        if (quiet) return;
         view.Redraw();
         // Horizontal field of view of a 36 mm wide frame.
         view.ShowToast($"{lens:0} mm · {2 * Math.Atan(18 / lens) * 180 / Math.PI:0}° H");
@@ -130,21 +132,9 @@ internal static class ViewTools
     {
         try
         {
-            string folder = string.IsNullOrEmpty(doc.Path) // unsaved: ~/Pictures/Promenade, or Pictures\Promenade on Windows
-                ? Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures), "Promenade")
-                : Path.Combine(Path.GetDirectoryName(doc.Path)!, Path.GetFileNameWithoutExtension(doc.Path) + " - Walk shots");
-            // Viewport.Size is already in backing (Retina) pixels, so this is full screen resolution.
-            var size = view.ActiveViewport.Size;
-            var frame = FrameTools.Frame(doc);
-            // Framed: capture at the viewport's own aspect, so the frustum is exactly the one on screen whatever
-            // ViewCapture does with a different aspect, scaled so the centred frame is the image size; then crop.
-            var (w, h, cropX, cropY) = frame is { } f ? FrameMath.Capture(size.Width, size.Height, f.Width, f.Height) : (size.Width, size.Height, 0, 0);
-            var capture = new ViewCapture { Width = w, Height = h, ScaleScreenItems = true };
-            using var full = capture.CaptureToBitmap(view);
-            if (full is null) { view.ShowToast("Screenshot failed"); return; }
-            using var cropped = frame is { } image && (w, h) != (image.Width, image.Height)
-                ? full.Clone(new Rectangle(cropX, cropY, image.Width, image.Height), full.PixelFormat) : null;
-            var bitmap = cropped ?? full;
+            string folder = OutputFolder(doc, "Walk shots");
+            using var bitmap = Capture(view, FrameTools.Frame(doc));
+            if (bitmap is null) { view.ShowToast("Screenshot failed"); return; }
             Directory.CreateDirectory(folder);
             // Two shots in one second get "-2", "-3", ... instead of replacing the file or the named view.
             string stem = $"Walk {DateTime.Now:yyyy-MM-dd HHmmss}", name = stem;
@@ -162,6 +152,24 @@ internal static class ViewTools
             view.ShowToast("Screenshot failed");
             RhinoApp.WriteLine($"Promenade: screenshot failed: {ex.Message}");
         }
+    }
+
+    // Where captures of doc go: "<document folder>/<document name> - <what>", or for an unsaved document
+    // ~/Pictures/Promenade (Pictures\Promenade on Windows).
+    internal static string OutputFolder(RhinoDoc doc, string what) => string.IsNullOrEmpty(doc.Path)
+        ? Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyPictures), "Promenade")
+        : Path.Combine(Path.GetDirectoryName(doc.Path)!, Path.GetFileNameWithoutExtension(doc.Path) + " - " + what);
+
+    // The viewport at backing resolution, or exactly the centred `image` frame at that size. Captured at the
+    // viewport's own aspect, so the frustum is exactly the one on screen whatever ViewCapture does with a
+    // different aspect, scaled so the centred frame is the image size; then cropped. Null if Rhino failed.
+    internal static Bitmap? Capture(RhinoView view, Size? image)
+    {
+        var size = view.ActiveViewport.Size; // already backing (Retina) pixels
+        var (w, h, cropX, cropY) = image is { } f ? FrameMath.Capture(size.Width, size.Height, f.Width, f.Height) : (size.Width, size.Height, 0, 0);
+        var full = new ViewCapture { Width = w, Height = h, ScaleScreenItems = true }.CaptureToBitmap(view);
+        if (full is null || image is not { } i || (w, h) == (i.Width, i.Height)) return full;
+        using (full) return full.Clone(new Rectangle(cropX, cropY, i.Width, i.Height), full.PixelFormat);
     }
 
     internal static Result OnView(RhinoDoc doc, Action<RhinoView> action)

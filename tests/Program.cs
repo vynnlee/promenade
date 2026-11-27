@@ -99,4 +99,30 @@ Near(FrameMath.HorizonY(1, -1, 1, 0, 1000), 500, "level: horizon at the centre")
 Near(FrameMath.HorizonY(1, -1, 1, Math.PI / 4, 1000), 1000, "45° up in a 90° frustum: horizon at the bottom");
 Near(FrameMath.HorizonY(1.5, -0.5, 1, 0, 1000), 750, "two-point shift up: horizon lower");
 
+// Walk recordings: the stored text, yaw unwrapping, smoothing, video sizes.
+var rec = new System.Collections.Generic.List<WalkSample>();
+for (int i = 0; i <= 90; i++) rec.Add(new WalkSample(i / 30.0, 2 * i / 30.0, 1000.5, 1600, 0.1 * i / 30.0, 0, 24, i > 45));
+var back = RecordMath.Decode("junk\n" + RecordMath.Encode(rec) + "1 2 3\n0.5 0 0 0 0 0 24 0\n");
+Near(back.Count, rec.Count, "decode keeps every sample, drops bad lines and time going back");
+Near(back[60].X, rec[60].X, "x round-trips"); Near(back[60].Yaw, rec[60].Yaw, "yaw round-trips");
+if (back[60].TwoPoint != rec[60].TwoPoint || back[10].TwoPoint) throw new Exception("two-point round-trips");
+var line = RecordMath.At(rec, 1.0);
+Near(line.X, 2.0, "smoothing leaves linear motion alone"); Near(line.Yaw, 0.1, "linear yaw unchanged");
+Near(RecordMath.At(rec, 0).X, 0, "first pose exact"); Near(RecordMath.At(rec, 3).X, 6, "last pose exact");
+Near(RecordMath.At(rec, 99).X, 6, "past the end holds the last pose");
+var jitter = new System.Collections.Generic.List<WalkSample>();
+for (int i = 0; i <= 90; i++) jitter.Add(new WalkSample(i / 30.0, i % 2 == 0 ? 0.1 : -0.1, 0, 0, 0, 0, 24, false));
+if (Math.Abs(RecordMath.At(jitter, 1.5).X) > 0.02) throw new Exception("smoothing damps ±0.1 jitter");
+var wrap = new System.Collections.Generic.List<WalkSample> { new(0, 0, 0, 0, 3.1, 0, 24, false), new(1, 0, 0, 0, -3.1, 0, 24, false) };
+RecordMath.Unwrap(wrap);
+Near(wrap[1].Yaw, 2 * Math.PI - 3.1, "unwrap keeps yaw continuous");
+Near(RecordMath.At(wrap, 0.5).Yaw, Math.PI, "half way turns the short way");
+var vs = RecordMath.VideoSize(3840, 2160, 1920);
+Near(vs.W, 1920, "16:9 video width"); Near(vs.H, 1080, "16:9 video height");
+vs = RecordMath.VideoSize(4, 5, 1920);
+Near(vs.W, 1536, "4:5 video width"); Near(vs.H, 1920, "4:5 video height");
+vs = RecordMath.VideoSize(2.39, 1, 1920);
+Near(vs.H, 804, "2.39:1 height rounds to even");
+if (RecordMath.Clock(72.9) != "1:12" || RecordMath.Clock(3723) != "1:02:03") throw new Exception("clock text");
+
 Console.WriteLine("SelfCheck: all passed");
