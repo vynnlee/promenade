@@ -10,6 +10,8 @@ First public release. Earlier internal builds (up to 0.2.0) were named RhinoWalk
 
 ### Added
 
+- Promenade logo (a runner on a perspective floor grid) for the package, plug-in and toolbar;
+  master SVGs in `design/logo/final/`.
 - First-person walk mode for Rhinoceros 9 on macOS (Apple Silicon): WASD / arrow keys, mouse look,
   run (Shift), jump (Space), scroll-wheel speed (0.2–30 m/s), fly mode (Tab).
 - Collision with Jolt Physics `CharacterVirtual`: 0.3 m capsule, 0.4 m steps, 45° maximum slope,

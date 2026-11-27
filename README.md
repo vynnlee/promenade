@@ -1,5 +1,7 @@
 **English** · [한국어](README.ko.md)
 
+<p align="center"><img src="ui/logo-512.png" alt="Promenade logo" width="160"></p>
+
 # Promenade
 
 Promenade — first-person walkthroughs for Rhinoceros® 9 on macOS.

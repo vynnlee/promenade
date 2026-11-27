@@ -1,5 +1,7 @@
 [English](README.md) · **한국어**
 
+<p align="center"><img src="ui/logo-512.png" alt="Promenade 로고" width="160"></p>
+
 # Promenade
 
 Promenade — macOS용 Rhinoceros® 9에서 쓰는 1인칭 걷기 탐색 플러그인입니다(Apple Silicon).

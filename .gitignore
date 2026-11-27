@@ -7,5 +7,5 @@ test/*Walk shots*/
 test/*.3dm
 test/*.3dm.rhl
 test/*.3dmbak
-# Logo work in progress (final assets live in ui/).
-design/
+# Logo explorations; the final master SVGs in design/logo/final/ are kept.
+design/logo/round*/

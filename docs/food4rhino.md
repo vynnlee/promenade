@@ -16,6 +16,7 @@ Items marked **[author]** can only be done by Seongbeen Lee (they need his Rhino
 | Support email | **TODO (author to fill)** |
 | Website / source | https://github.com/vynnlee/promenade |
 | Support / issues | https://github.com/vynnlee/promenade/issues |
+| Project icon | `ui/icon-512.png` (512×512 badge; master SVG in `design/logo/final/`) |
 
 ## Body
 
